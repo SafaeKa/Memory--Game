@@ -3,7 +3,9 @@ let cards = [];
 let firstCard, secondCard; //cards which are compared
 let lockBoard = false; //match
 let score = 0;
+let attempts = 0;
 
+document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
 
 fetch("./data/cards.json")
@@ -57,8 +59,8 @@ function flipCard() {
     }
 
     secondCard = this;
-    score++;
-    document.querySelector(".score").textContent = score;
+    attempts++;
+    document.querySelector(".attempts").textContent = attempts;
     lockBoard = true;
 
     checkForMatch();
@@ -67,7 +69,7 @@ function flipCard() {
 function checkForMatch() {
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
-    isMatch ? disableCards() : unflipCards();
+    isMatch ? (disableCards(), scoreIncrement()) : unflipCards();
 }
 
 function disableCards() {
@@ -85,6 +87,10 @@ function unflipCards() {
     }, 1000);
 }
 
+function scoreIncrement(){
+    score ++;
+    document.querySelector(".score").textContent = score;
+}
 function resetBoard() {
     firstCard = null;
     secondCard = null;

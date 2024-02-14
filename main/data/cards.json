@@ -1,0 +1,41 @@
+[ {
+  "image": "./assets/img_2.png",
+  "name": "cherries"
+},
+  {
+    "image": "./assets/lemon.png",
+    "name": "lemon"
+  },
+  {
+    "image": "./assets/img_1.png",
+    "name": "spain"
+  },
+  {
+    "image": "./assets/img_2.png",
+    "name": "croatia"
+  },
+  {
+    "image": "./assets/lemon.png",
+    "name": "lemon"
+  },
+  {
+    "image": "./assets/img_1.png",
+    "name": "spain"
+  },
+  {
+    "image": "./assets/img_2.png",
+    "name": "croatia"
+  },
+  {
+  "image": "./assets/img_2.png",
+  "name": "cherries"
+  },
+  {
+    "image": "./assets/lemon.png",
+    "name": "lemon"
+  },
+  {
+    "image": "./assets/img_1.png",
+    "name": "spain"
+  }
+]
