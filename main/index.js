@@ -11,7 +11,7 @@ document.querySelector(".score").textContent = score;
 fetch("./data/cards.json")
     .then((res) => res.json())
     .then((data) => {
-        cards = [...data, ...data]; //copy every data value -> twice
+        cards = [...data.slice(0, 4), ...data.slice(0, 4)]; //copy every data value -> twice, second argument of slice is number of cards
         shuffleCards();
         generateCards();
     });
