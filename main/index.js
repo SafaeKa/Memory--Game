@@ -1,5 +1,6 @@
 const gridContainer = document.querySelector(".grid-container"); //reference to grid container
 let cards = [];
+let cardsAll = [];
 let firstCard, secondCard; //cards which are compared
 let lockBoard = false; //match
 let score = 0;
@@ -11,24 +12,24 @@ document.querySelector(".score").textContent = score;
 fetch("./data/cards.json")
     .then((res) => res.json())
     .then((data) => {
-        cards = [...data.slice(0, 4), ...data.slice(0, 4)]; //copy every data value -> twice, second argument of slice is number of cards
+        cardsAll = [...data];
         shuffleCards();
         generateCards();
     });
-console.log(cards);
 
 
 function shuffleCards() {
-    let currentIndex = cards.length,
+    let currentIndex = cardsAll.length,
         randomIndex,
         temporaryValue;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = cards[currentIndex];
-        cards[currentIndex] = cards[randomIndex];
-        cards[randomIndex] = temporaryValue;
+        temporaryValue = cardsAll[currentIndex];
+        cardsAll[currentIndex] = cardsAll[randomIndex];
+        cardsAll[randomIndex] = temporaryValue;
     }
+    cards = [...cardsAll.slice(0, 4), ...cardsAll.slice(0, 4)] //copy every data value -> twice, second argument of slice is number of cards
 }
 
 function generateCards() {
