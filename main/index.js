@@ -5,6 +5,7 @@ let firstCard, secondCard; //cards which are compared
 let lockBoard = false; //match
 let score = 0;
 let attempts = 0;
+let numberCards = 5;
 
 document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
@@ -29,7 +30,7 @@ function shuffleCards() {
         cardsAll[currentIndex] = cardsAll[randomIndex];
         cardsAll[randomIndex] = temporaryValue;
     }
-    cards = [...cardsAll.slice(0, 4), ...cardsAll.slice(0, 4)] //copy every data value -> twice, second argument of slice is number of cards
+    cards = [...cardsAll.slice(0, numberCards), ...cardsAll.slice(0, numberCards)] //copy every data value -> twice, second argument of slice is number of cards
 }
 
 function generateCards() {
@@ -106,3 +107,8 @@ function restart() {
     gridContainer.innerHTML = "";
     generateCards();
 }
+
+function changeBackgroundColor() {
+
+}
+

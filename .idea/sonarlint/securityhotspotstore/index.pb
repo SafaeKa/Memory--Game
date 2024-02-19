@@ -7,3 +7,5 @@
 main/style.css,8\6\8692809a98fc5d82e26198701d836edc3c50fcf1
 D
 main/data/cards.json,f\9\f927afb1ae77ba1ae000606dedf0d453f02915dc
+C
+main/startpage.html,9\8\98942336657f2a8b61e0a9f18d69a1e143658455

@@ -21,6 +21,24 @@ h1 {
 }
 /*actions -> Restart Button*/
 
+.level button {
+    border-radius: 10px;
+    background-color: white;
+
+}
+
+.level button:active {
+    background-color: red;
+
+}
+
+.level {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+
+}
+
 .grid-container {
     display: grid;
     justify-content: center;
