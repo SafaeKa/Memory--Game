@@ -27,10 +27,6 @@ h1 {
 
 }
 
-.level button:active {
-    background-color: red;
-
-}
 
 .level {
     display: flex;

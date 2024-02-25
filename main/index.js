@@ -6,6 +6,7 @@ let lockBoard = false; //match
 let score = 0;
 let attempts = 0;
 let numberCards = 5;
+let colored = "";
 
 document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
@@ -108,7 +109,13 @@ function restart() {
     generateCards();
 }
 
-function changeBackgroundColor() {
+function changeBackgroundColor(value) {
+    if (colored){
+        const buttonColored =  document.getElementById(colored);
+        buttonColored.style.backgroundColor = "white";
+    }
+    const button = document.getElementById(value);
+    button.style.backgroundColor = "green";
+    colored = value;
 
 }
-
