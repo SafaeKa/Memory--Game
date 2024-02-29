@@ -9,3 +9,5 @@ D
 main/data/cards.json,f\9\f927afb1ae77ba1ae000606dedf0d453f02915dc
 C
 main/startpage.html,9\8\98942336657f2a8b61e0a9f18d69a1e143658455
+A
+main/startpage.js,c\b\cb934076051d3eb261069b7d79f08146083009ae
