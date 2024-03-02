@@ -6,7 +6,8 @@ let lockBoard = false; //match
 let score = 0;
 let attempts = 0;
 let numberCards = 5;
-
+let timerInterval; // Timer interval ID
+let totalSeconds = 0; // Total seconds elapsed
 
 document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
@@ -17,6 +18,7 @@ fetch("./data/cards.json")
         cardsAll = [...data];
         shuffleCards();
         generateCards();
+        startTimer(); // Start the timer when the game starts
     });
 
 
@@ -31,7 +33,7 @@ function shuffleCards() {
         cardsAll[currentIndex] = cardsAll[randomIndex];
         cardsAll[randomIndex] = temporaryValue;
     }
-    cards = [...cardsAll.slice(0, numberCards), ...cardsAll.slice(0, numberCards)] //copy every data value -> twice, second argument of slice is number of cards
+    cards = [...cardsAll.slice(0, numberCards), ...cardsAll.slice(0, numberCards)]; //copy every data value -> twice, second argument of slice is number of cards
 }
 
 function generateCards() {
@@ -40,11 +42,11 @@ function generateCards() {
         cardElement.classList.add("card");
         cardElement.setAttribute("data-name", card.name);
         cardElement.innerHTML = `
-      <div class="front">
+        <div class="front">
         <img class="front-image" src=${card.image} />
-      </div>
-      <div class="back"></div>
-    `;
+        </div>
+        <div class="back"></div>
+        `;
         gridContainer.appendChild(cardElement);
         cardElement.addEventListener("click", flipCard);
     }
@@ -93,7 +95,11 @@ function unflipCards() {
 function scoreIncrement(){
     score ++;
     document.querySelector(".score").textContent = score;
+    if (score === numberCards ) { // Check if all matches are found
+        clearInterval(timerInterval); // Stop the timer
+    }
 }
+
 function resetBoard() {
     firstCard = null;
     secondCard = null;
@@ -104,8 +110,30 @@ function restart() {
     resetBoard();
     shuffleCards();
     score = 0;
+    attempts = 0;
+    totalSeconds = 0; // Reset total seconds
     document.querySelector(".score").textContent = score;
+    document.querySelector(".attempts").textContent = attempts;
+    document.querySelector(".timer").textContent = "00:00"; // Reset timer display
+    clearInterval(timerInterval); // Clear existing timer interval
+    startTimer(); // Start the timer again
     gridContainer.innerHTML = "";
     generateCards();
+}
+
+function startTimer() {
+    timerInterval = setInterval(updateTimer, 1000); // Update timer every second
+}
+
+function updateTimer() {
+    totalSeconds++;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const formattedTime = padZero(minutes) + ":" + padZero(seconds);
+    document.querySelector(".timer").textContent = formattedTime;
+}
+
+function padZero(num) {
+    return (num < 10 ? '0' : '') + num;
 }
 
