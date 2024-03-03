@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class="grid-container">
+<div class="container"><div class ="choice">
+    <text>theme:</text>
+    <button id="flags">flags</button>
+    <button id="fruits">fruits</button>
+    <button id="animals">animals</button>
+    <button id="random">random</button>
 </div>
-<div class ="level">
 
-    <button onclick="changeBackgroundColor(id)" id="easy">easy</button>
-    <button onclick="changeBackgroundColor(id)" id="medium">medium</button>
-    <button onclick="changeBackgroundColor(id)" id="hard">hard</button>
-</div>
+    <div class ="choice">
+        <text>player:</text>
+        <button id="solo">solo</button>
+        <button id="two">two</button>
+    </div>
+
+    <div class ="choice">
+        <text>level:</text>
+        <button onclick="changeBackgroundColor(id)" id="easy">easy</button>
+        <button onclick="changeBackgroundColor(id)" id="medium">medium</button>
+        <button onclick="changeBackgroundColor(id)" id="hard">hard</button>
+    </div></div>
+
 <div class="actions">
     <button onclick=location.href="index.html">Start</button>
     <script src="startpage.js"></script>
