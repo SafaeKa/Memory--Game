@@ -1,36 +1,14 @@
-let coloredTheme = "";
-let coloredPlayer = "";
-let coloredLevel = "";
+let colored = [];
 
 
-function changeBackgroundColorTheme(value) {
-    if (coloredTheme){
-        const buttonColored =  document.getElementById(coloredTheme);
+function changeBackgroundColor(id, value ) {
+    if (colored[value]){
+        const buttonColored =  document.getElementById(colored[value]);
         buttonColored.style.backgroundColor = "white";
     }
-    const button = document.getElementById(value);
+    const button = document.getElementById(id);
     button.style.backgroundColor = "green";
-    coloredTheme = value;
+    //coloredTheme = id;
+    colored[value] = id;
 
 }
-function changeBackgroundColorPlayer(value) {
-    if (coloredPlayer){
-        const buttonColored =  document.getElementById(coloredPlayer);
-        buttonColored.style.backgroundColor = "white";
-    }
-    const button = document.getElementById(value);
-    button.style.backgroundColor = "green";
-    coloredPlayer = value;
-
-}
-function changeBackgroundColorLevel(value) {
-    if (coloredLevel){
-        const buttonColored =  document.getElementById(coloredLevel);
-        buttonColored.style.backgroundColor = "white";
-    }
-    const button = document.getElementById(value);
-    button.style.backgroundColor = "green";
-    coloredLevel = value;
-
-}
-
