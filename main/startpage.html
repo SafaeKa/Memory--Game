@@ -6,26 +6,28 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class="container"><div class ="choice">
+<div class="container">
+    <div class ="choice">
+    <div class ="theme">
     <text>theme:</text>
-    <button id="flags">flags</button>
-    <button id="fruits">fruits</button>
-    <button id="animals">animals</button>
-    <button id="random">random</button>
+    <button onclick="changeBackgroundColorTheme(id)" id="flags">flags</button>
+    <button onclick="changeBackgroundColorTheme(id)" id="fruits">fruits</button>
+    <button onclick="changeBackgroundColorTheme(id)" id="animals">animals</button>
+    <button onclick="changeBackgroundColorTheme(id)" id="random">random</button>
 </div>
 
-    <div class ="choice">
+    <div class ="player">
         <text>player:</text>
-        <button id="solo">solo</button>
-        <button id="two">two</button>
+        <button onclick="changeBackgroundColorPlayer(id)" id="solo">solo</button>
+        <button onclick="changeBackgroundColorPlayer(id)" id="two">two</button>
     </div>
 
-    <div class ="choice">
+    <div class ="level">
         <text>level:</text>
-        <button onclick="changeBackgroundColor(id)" id="easy">easy</button>
-        <button onclick="changeBackgroundColor(id)" id="medium">medium</button>
-        <button onclick="changeBackgroundColor(id)" id="hard">hard</button>
-    </div></div>
+        <button onclick="changeBackgroundColorLevel(id)" id="easy">easy</button>
+        <button onclick="changeBackgroundColorLevel(id)" id="medium">medium</button>
+        <button onclick="changeBackgroundColorLevel(id)" id="hard">hard</button>
+    </div></div></div>
 
 <div class="actions">
     <button onclick=location.href="index.html">Start</button>

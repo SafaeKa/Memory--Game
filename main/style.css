@@ -30,7 +30,22 @@ h1 {
 
 }
 
-.choice {
+.level {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    font-size: 26px;
+
+}
+.theme {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    font-size: 26px;
+
+}
+
+.player {
     display: flex;
     justify-content: center;
     padding: 15px;
