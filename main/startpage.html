@@ -1,18 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Startseite</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class="grid-container">
+<div class="container">
+    <div class ="choice">
+    <div class ="theme">
+    <text>theme:</text>
+    <button onclick="changeBackgroundColor(id,'1')" id="flags">flags</button>
+    <button onclick="changeBackgroundColor(id,'1')" id="fruits">fruits</button>
+    <button onclick="changeBackgroundColor(id,'1')" id="animals">animals</button>
+    <button onclick="changeBackgroundColor(id,'1')" id="random">random</button>
 </div>
-<div class ="level">
-    <button onclick="changeBackgroundColor(id)" id="easy">easy</button>
-    <button onclick="changeBackgroundColor(id)" id="medium">medium</button>
-    <button onclick="changeBackgroundColor(id)" id="hard">hard</button>
-</div>
+
+    <div class ="player">
+        <text>player:</text>
+        <button onclick="changeBackgroundColor(id,'2')" id="solo">solo</button>
+        <button onclick="changeBackgroundColor(id,'2')" id="two">two</button>
+    </div>
+
+    <div class ="level">
+        <text>level:</text>
+        <button onclick="changeBackgroundColor(id,'3')" id="easy">easy</button>
+        <button onclick="changeBackgroundColor(id,'3')" id="medium">medium</button>
+        <button onclick="changeBackgroundColor(id,'3')" id="hard">hard</button>
+    </div></div></div>
+
 <div class="actions">
     <button onclick=location.href="index.html">Start</button>
     <script src="startpage.js"></script>

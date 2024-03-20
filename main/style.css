@@ -21,17 +21,35 @@ h1 {
 }
 /*actions -> Restart Button*/
 
-.level button {
+.choice button {
     border-radius: 10px;
     background-color: white;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    font-size: 22px;
 
 }
-
 
 .level {
     display: flex;
     justify-content: center;
     padding: 15px;
+    font-size: 26px;
+
+}
+.theme {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    font-size: 26px;
+
+}
+
+.player {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    font-size: 26px;
 
 }
 
@@ -42,6 +60,14 @@ h1 {
     grid-template-columns: repeat(6, 140px);
     grid-template-rows: repeat(2, calc(140px / 2 * 3));
 }
+
+.container {
+    width: 100%;
+    align-items: center;
+    display: grid;
+    justify-content: center;
+}
+
 .card {
     height: calc(140px / 2 * 3);
     width: 140px;
