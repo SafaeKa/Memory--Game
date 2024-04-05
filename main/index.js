@@ -5,12 +5,19 @@ let firstCard, secondCard; //cards which are compared
 let lockBoard = false; //match
 let score = 0;
 let attempts = 0;
-let numberCards = 5;
+let numberCards = 4; //default number
 let timerInterval; // Timer interval ID
 let totalSeconds = 0; // Total seconds elapsed
 
 document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
+
+//extracting the difficulty level
+const urlParams = new URLSearchParams(window.location.search);
+const difficulty = urlParams.get('difficulty');
+if (difficulty) {
+    numberCards = parseInt(difficulty);
+}
 
 fetch("./data/cards.json")
     .then((res) => res.json())
