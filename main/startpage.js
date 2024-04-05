@@ -17,11 +17,7 @@ function changeBackgroundColor(id, value) {
 
 function checkOptionsSelected() {
     const startButton = document.getElementById("startButton");
-    if (colored[1] !== "" && colored[2] !== "" && colored[3] !== "") {
-        startButton.disabled = false;
-    } else {
-        startButton.disabled = true;
-    }
+    startButton.disabled = !(colored[1] !== "" && colored[2] !== "" && colored[3] !== "");
 }
 
 function generateLink() {
