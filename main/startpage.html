@@ -18,10 +18,14 @@
 
     <div class ="player">
         <text>player:</text>
-        <button onclick="changeBackgroundColor(id,'2')" id="solo">solo</button>
-        <button onclick="changeBackgroundColor(id,'2')" id="two">two</button>
+        <button onclick="handlePlayerClick('solo', 'solo')" id="solo">solo</button>
+        <button onclick="handlePlayerClick('two', 'two')" id="two">two</button>
     </div>
-
+     <div class="player-names"><form id="playerNamesForm" style="display: none;">
+         <input type="text" id="player1Name" placeholder="Player 1 Name">
+         <input type="text" id="player2Name" placeholder="Player 2 Name">
+     </form>
+     </div>
     <div class ="level">
         <text>level:</text>
         <button onclick="changeBackgroundColor(id,'3')" id="easy">easy</button>
@@ -30,7 +34,7 @@
     </div></div></div>
 
 <div class="actions">
-    <button onclick=location.href="index.html">Start</button>
+    <button id="startButton" onclick="generateLink()" disabled>Start</button>
     <script src="startpage.js"></script>
 </div>
 </body>

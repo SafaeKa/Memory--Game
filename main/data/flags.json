@@ -1,0 +1,38 @@
+[
+  {
+    "image": "./assets/bosnia-and-herzegovina.png",
+    "name": "bosnia-and-herzegovina"
+  },
+  {
+    "image": "./assets/ethiopia.png",
+    "name": "ethiopia"
+  },
+  {
+    "image": "./assets/germany.png",
+    "name": "germany"
+  },
+  {
+    "image": "./assets/hungary.png",
+    "name": "hungary"
+  },
+  {
+    "image": "./assets/iceland.png",
+    "name": "iceland"
+  },
+  {
+    "image": "./assets/morocco.png",
+    "name": "morocco"
+  },
+  {
+    "image": "./assets/palestine.png",
+    "name": "palestine"
+  },
+  {
+    "image": "./assets/sri-lanka.png",
+    "name": "sri-lanka"
+  },
+  {
+    "image": "./assets/tunisia.png",
+    "name": "tunisia"
+  }
+]
