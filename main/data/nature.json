@@ -1,0 +1,37 @@
+[{
+  "image": "./assets/bird.png",
+  "name": "bird"
+},
+  {
+    "image": "./assets/fox.png",
+    "name": "fox"
+  },
+  {
+    "image": "./assets/lake.png",
+    "name": "lake"
+  },
+  {
+    "image": "./assets/landscape.png",
+    "name": "landscape"
+  },
+  {
+    "image": "./assets/leaves.png",
+    "name": "leaves"
+  },
+  {
+    "image": "./assets/mountain.png",
+    "name": "mountain"
+  },
+  {
+    "image": "./assets/rabbit.png",
+    "name": "rabbit"
+  },
+  {
+    "image": "./assets/tree.png",
+    "name": "tree"
+  },
+  {
+    "image": "./assets/waterfall.png",
+    "name": "waterfall"
+  }
+]

@@ -21,7 +21,27 @@ function checkOptionsSelected() {
 }
 
 function generateLink() {
-    let theme = colored[1] === "flags" ? "./data/flags.json" : (colored[1] === "cards" ? "./data/cards.json" : " ./data/animals.json");
+    let theme = colored[1] === "flags" ? "./data/flags.json" : (colored[1] === "cards" ? "./data/cards.json" : " ./data/nature.json");
+    if (colored[1] === "flags" ){
+        theme =  "./data/flags.json"
+    }
+    if (colored[1] === "fruits" ){
+        theme =  "./data/cards.json"
+    }
+    if (colored[1] === "nature" ){
+        theme =  "./data/nature.json"
+    }
+    if (colored[1] === "random" ){
+        let random = {
+            0 : "./data/flags.json",
+            1 : "./data/fruits.json",
+            2 : "./data/nature.json"
+        }
+        let n;
+        n = Math.floor(Math.random()*3)
+        console.log(n)
+        theme =  random[n]
+    }
     let difficulty = colored[3] === "easy" ? 4 : (colored[3] === "medium" ? 6 : 9);
     let link = `?theme=${theme}&player=${colored[2]}&level=${colored[3]}&difficulty=${difficulty}`;
     window.location.href = "index.html" + link;
