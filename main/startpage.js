@@ -27,3 +27,22 @@ function generateLink() {
     window.location.href = "index.html" + link;
 }
 
+function togglePlayerInput(playerType) {
+    const playerNamesForm = document.getElementById('playerNamesForm');
+    const player1Input = document.getElementById('player1Name');
+    const player2Input = document.getElementById('player2Name');
+
+    if (playerType === 'solo') {
+        player1Input.style.display = 'block';
+        player2Input.style.display = 'none';
+    } else if (playerType === 'two') {
+        player1Input.style.display = 'block';
+        player2Input.style.display = 'block';
+    }
+
+    playerNamesForm.style.display = 'block';
+}
+function handlePlayerClick(id, playerType) {
+    changeBackgroundColor(id, '2');
+    togglePlayerInput(playerType);
+}
