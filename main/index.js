@@ -12,15 +12,16 @@ let totalSeconds = 0; // Total seconds elapsed
 document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
 
-//extracting the difficulty level
+//extracting the difficulty level and the theme
 const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
+const theme = urlParams.get('theme');
 if (difficulty) {
     numberCards = parseInt(difficulty);
 }
 
 //part responsible for getting the cards
-fetch("./data/cards.json")
+fetch(theme)
     .then((res) => res.json())
     .then((data) => {
         cardsAll = [...data];
