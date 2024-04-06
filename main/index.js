@@ -19,6 +19,7 @@ if (difficulty) {
     numberCards = parseInt(difficulty);
 }
 
+//part responsible for getting the cards
 fetch("./data/cards.json")
     .then((res) => res.json())
     .then((data) => {
