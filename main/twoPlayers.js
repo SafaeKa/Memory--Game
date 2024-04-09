@@ -3,8 +3,10 @@ let cards = [];
 let cardsAll = [];
 let firstCard, secondCard; //cards which are compared
 let lockBoard = false; //match
-let score = 0;
-let attempts = 0;
+let scorePlayer1 = 0;
+let attemptsPlayer1 = 0;
+let scorePlayer2 = 0;
+let attemptsPlayer2 = 0;
 let numberCards = 4; //default number
 let timerInterval; // Timer interval ID
 let totalSeconds = 0; // Total seconds elapsed
@@ -12,9 +14,11 @@ const player1 = "player1"
 const player2 = "player2"
 let currentPlayer = player1
 
-document.querySelector(".attempts").textContent = attempts;
-document.querySelector(".score").textContent = score;
-document.querySelector(".player").textContent = score;
+document.querySelector(".attemptsPlayer1").textContent = attempts;
+document.querySelector(".scorePlayer1").textContent = score;
+document.querySelector(".attemptsPlayer2").textContent = attempts;
+document.querySelector(".scorePlayer2").textContent = score;
+//document.querySelector(".player").textContent = score;
 
 //extracting the difficulty level and the theme
 const urlParams = new URLSearchParams(window.location.search);
@@ -98,8 +102,9 @@ function flipCard() {
     }
 
     secondCard = this;
-    attempts++;
-    document.querySelector(".attempts").textContent = attempts;
+    currentPlayer === player1 ? attemptsPlayer1++ : attemptsPlayer2 ++;
+    document.querySelector(".attemptsPlayer1").textContent = attemptsPlayer1.toString();
+    document.querySelector(".attemptsPlayer2").textContent = attemptsPlayer2.toString();
     lockBoard = true;
 
     checkForMatch();
@@ -129,9 +134,10 @@ function unflipCards() {
 }
 
 function scoreIncrement(){
-    score ++;
-    document.querySelector(".score").textContent = score;
-    if (score === numberCards ) { // Check if all matches are found
+    currentPlayer === player1 ? scorePlayer1++ : scorePlayer2 ++;
+    document.querySelector(".scorePlayer1").textContent = scorePlayer1.toString();
+    document.querySelector(".scorePlayer2").textContent = scorePlayer2.toString();
+    if (scorePlayer1 + scorePlayer2 === numberCards ) { // Check if all matches are found
         clearInterval(timerInterval); // Stop the timer
     }
 }
@@ -145,11 +151,15 @@ function resetBoard() {
 function restart() {
     resetBoard();
     shuffleCards();
-    score = 0;
-    attempts = 0;
+    scorePlayer1 = 0;
+    attemptsPlayer1 = 0;
+    scorePlayer2 = 0;
+    attemptsPlayer2 = 0;
     totalSeconds = 0; // Reset total seconds
-    document.querySelector(".score").textContent = score;
-    document.querySelector(".attempts").textContent = attempts;
+    document.querySelector(".scorePlayer1").textContent = scorePlayer1;
+    document.querySelector(".attemptsPlayer1").textContent = attemptsPlayer1;
+    document.querySelector(".scorePlayer2").textContent = scorePlayer2;
+    document.querySelector(".attemptsPlayer2").textContent = attemptsPlayer2;
     document.querySelector(".timer").textContent = "00:00"; // Reset timer display
     clearInterval(timerInterval); // Clear existing timer interval
     startTimer(); // Start the timer again
