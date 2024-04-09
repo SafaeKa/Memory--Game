@@ -31,10 +31,11 @@ function generateLink() {
     if (colored[1] === "nature" ){
         theme =  "./data/nature.json"
     }
+
     if (colored[1] === "random" ){
         let random = {
             0 : "./data/flags.json",
-            1 : "./data/fruits.json",
+            1 : "./data/cards.json",
             2 : "./data/nature.json"
         }
         let n;

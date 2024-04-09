@@ -14,10 +14,10 @@ const player1 = "player1"
 const player2 = "player2"
 let currentPlayer = player1
 
-document.querySelector(".attemptsPlayer1").textContent = attempts;
-document.querySelector(".scorePlayer1").textContent = score;
-document.querySelector(".attemptsPlayer2").textContent = attempts;
-document.querySelector(".scorePlayer2").textContent = score;
+document.querySelector(".attemptsPlayer1").textContent = attemptsPlayer1;
+document.querySelector(".scorePlayer1").textContent = scorePlayer1;
+document.querySelector(".attemptsPlayer2").textContent = attemptsPlayer2;
+document.querySelector(".scorePlayer2").textContent = scorePlayer2;
 //document.querySelector(".player").textContent = score;
 
 //extracting the difficulty level and the theme

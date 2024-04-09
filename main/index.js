@@ -12,12 +12,12 @@ let player = ""
 
 document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
-document.querySelector(".player").textContent = score;
 
 //extracting the difficulty level and the theme
 const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 const theme = urlParams.get('theme');
+console.log("here")
 if (difficulty) {
     numberCards = parseInt(difficulty);
 }
