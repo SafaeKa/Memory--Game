@@ -8,7 +8,9 @@ let attempts = 0;
 let numberCards = 4; //default number
 let timerInterval; // Timer interval ID
 let totalSeconds = 0; // Total seconds elapsed
-let player = ""
+const player1 = "player1"
+const player2 = "player2"
+let currentPlayer = player1
 
 document.querySelector(".attempts").textContent = attempts;
 document.querySelector(".score").textContent = score;
@@ -18,6 +20,7 @@ document.querySelector(".player").textContent = score;
 const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 const theme = urlParams.get('theme');
+
 if (difficulty) {
     numberCards = parseInt(difficulty);
 }
@@ -66,11 +69,21 @@ function generateCards() {
         </div>
         <div class="back"></div>
         `;
+        document.querySelector(".player").textContent = currentPlayer + ", it's you're turn!";
         gridContainer.appendChild(cardElement);
         cardElement.addEventListener("click", flipCard);
     }
 }
+function game(){
 
+    if (currentPlayer === player1){
+        currentPlayer = player2
+    }
+    else if (currentPlayer === player2){
+        currentPlayer = player1
+    }
+    document.querySelector(".player").textContent = currentPlayer + ", it's you're turn!";
+}
 
 
 function flipCard() {
@@ -110,7 +123,9 @@ function unflipCards() {
         firstCard.classList.remove("flipped");
         secondCard.classList.remove("flipped");
         resetBoard();
+        game();
     }, 1000);
+
 }
 
 function scoreIncrement(){
