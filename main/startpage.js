@@ -45,12 +45,7 @@ function generateLink() {
     }
     let difficulty = colored[3] === "easy" ? 4 : (colored[3] === "medium" ? 6 : 9);
     let link = `?theme=${theme}&player=${colored[2]}&level=${colored[3]}&difficulty=${difficulty}`;
-    if (colored[2] === "solo") {
-        window.location.href = "index.html" + link;
-    }
-    else if (colored[2] === "two") {
-        window.location.href = "twoPlayers.html" + link;
-    }
+    window.location.href = "game.html" + link;
 }
 
 function togglePlayerInput(playerType) {
