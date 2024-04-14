@@ -31,10 +31,11 @@ function generateLink() {
     if (colored[1] === "nature" ){
         theme =  "./data/nature.json"
     }
+
     if (colored[1] === "random" ){
         let random = {
             0 : "./data/flags.json",
-            1 : "./data/fruits.json",
+            1 : "./data/cards.json",
             2 : "./data/nature.json"
         }
         let n;
@@ -44,7 +45,7 @@ function generateLink() {
     }
     let difficulty = colored[3] === "easy" ? 4 : (colored[3] === "medium" ? 6 : 9);
     let link = `?theme=${theme}&player=${colored[2]}&level=${colored[3]}&difficulty=${difficulty}`;
-    window.location.href = "index.html" + link;
+    window.location.href = "game.html" + link;
 }
 
 function togglePlayerInput(playerType) {
