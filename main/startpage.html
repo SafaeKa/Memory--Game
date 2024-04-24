@@ -21,9 +21,9 @@
         <button onclick="handlePlayerClick('solo', 'solo')" id="solo">solo</button>
         <button onclick="handlePlayerClick('two', 'two')" id="two">two</button>
     </div>
-     <div class="player-names"><form id="playerNamesForm" style="display: none;">
-         <input type="text" id="player1Name" placeholder="Player 1 Name">
-         <input type="text" id="player2Name" placeholder="Player 2 Name">
+     <div class="player-names"><form action="connect.php" method="post" id="playerNamesForm" style="display: none;">
+         <input type="text" id="player1Name" name="player1Name" placeholder="Player 1 Name">
+         <input type="text" id="player2Name" name="player2Name" placeholder="Player 2 Name">
      </form>
      </div>
     <div class ="level">
