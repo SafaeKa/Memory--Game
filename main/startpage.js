@@ -3,6 +3,9 @@ let colored = {
     2: "",
     3: ""
 };
+const playerNamesForm = document.getElementById('playerNamesForm');
+const player1Input = document.getElementById('player1Name');
+const player2Input = document.getElementById('player2Name');
 
 function changeBackgroundColor(id, value) {
     if (colored[value]) {
@@ -21,11 +24,6 @@ function checkOptionsSelected() {
 }
 
 function generateLink() {
-    // Get the player names form and inputs
-    const playerNamesForm = document.getElementById('playerNamesForm');
-    const player1Input = document.getElementById('player1Name');
-    const player2Input = document.getElementById('player2Name');
-
     if (playerNamesForm.style.display !== 'none' && !playerNamesForm.disabled) {
         if (colored[2] === 'solo' && player1Input.value.trim() !== '') {
             generateGameLink();
@@ -78,10 +76,6 @@ function generateGameLink() {
 
 
 function togglePlayerInput(playerType) {
-    const playerNamesForm = document.getElementById('playerNamesForm');
-    const player1Input = document.getElementById('player1Name');
-    const player2Input = document.getElementById('player2Name');
-
     if (playerType === 'solo') {
         player1Input.style.display = 'block';
         player2Input.style.display = 'none';
