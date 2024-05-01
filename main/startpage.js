@@ -3,6 +3,9 @@ let colored = {
     2: "",
     3: ""
 };
+const playerNamesForm = document.getElementById('playerNamesForm');
+const player1Input = document.getElementById('player1Name');
+const player2Input = document.getElementById('player2Name');
 
 function changeBackgroundColor(id, value) {
     if (colored[value]) {
@@ -21,11 +24,6 @@ function checkOptionsSelected() {
 }
 
 function generateLink() {
-    // Get the player names form and inputs
-    const playerNamesForm = document.getElementById('playerNamesForm');
-    const player1Input = document.getElementById('player1Name');
-    const player2Input = document.getElementById('player2Name');
-
     if (playerNamesForm.style.display !== 'none' && !playerNamesForm.disabled) {
         if (colored[2] === 'solo' && player1Input.value.trim() !== '') {
             generateGameLink();
@@ -72,16 +70,20 @@ function generateGameLink() {
         theme = random[n];
     }
     let difficulty = colored[3] === "easy" ? 4 : (colored[3] === "medium" ? 6 : 9);
-    let link = `?theme=${theme}&player=${colored[2]}&level=${colored[3]}&difficulty=${difficulty}`;
+    const player1Name = document.getElementById('player1Name').value.trim();
+    const player2Name = document.getElementById('player2Name').value.trim();
+    let link;
+    if (colored[2] === "two") {
+        link = `?theme=${theme}&player=two&level=${colored[3]}&difficulty=${difficulty}&player1Name=${player1Name}&player2Name=${player2Name}`;
+    } else {
+        link = `?theme=${theme}&player=solo&level=${colored[3]}&difficulty=${difficulty}&player1Name=${player1Name}`;
+    }
     window.location.href = "game.html" + link;
 }
 
 
-function togglePlayerInput(playerType) {
-    const playerNamesForm = document.getElementById('playerNamesForm');
-    const player1Input = document.getElementById('player1Name');
-    const player2Input = document.getElementById('player2Name');
 
+function togglePlayerInput(playerType) {
     if (playerType === 'solo') {
         player1Input.style.display = 'block';
         player2Input.style.display = 'none';
