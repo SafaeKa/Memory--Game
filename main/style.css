@@ -1,6 +1,7 @@
 body {
     background-color: lightslategray;
     color: white;
+
 }
 h1 {
     text-align: center;
@@ -142,6 +143,17 @@ tr:hover {
     background-color: #ddd;
 }
 
+.scoreAndAttempts {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
 
+}
+
+.Player2 {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
 
 
