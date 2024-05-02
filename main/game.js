@@ -6,9 +6,11 @@ const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 const theme = urlParams.get('theme');
 const numberPlayers = urlParams.get('player')
-const player1 = "player1"
-const player2 = "player2"
-
+const player1 = (urlParams.get('player1Name')).charAt(0).toUpperCase() + (urlParams.get('player1Name')).slice(1);
+let player2 = 0;
+if (numberPlayers === "two") {
+    player2 = (urlParams.get('player2Name')).charAt(0).toUpperCase() + (urlParams.get('player2Name')).slice(1);
+}
 if (difficulty) {
     numberCards = parseInt(difficulty);
 }
@@ -22,9 +24,13 @@ let textScorePlayer1 = "Score " + player1 + ": ";
 let attemptsPlayer1 = 0;
 let textAttemptsPlayer1 = "Attempts " + player1 + ": ";
 let scorePlayer2 = 0;
-let textScorePlayer2 = "Score " + player2 + ": ";
 let attemptsPlayer2 = 0;
-let textAttemptsPlayer2 = "Attempts " + player2 + ": ";
+let textScorePlayer2 = 0;
+let textAttemptsPlayer2 = 0;
+if (numberPlayers === "two") {
+    textScorePlayer2 = "Score " + player2 + ": ";
+    textAttemptsPlayer2 = "Attempts " + player2 + ": ";
+}
 let timerInterval; // Timer interval ID
 let totalSeconds = 0; // Total seconds elapsed
 let currentPlayer = player1
@@ -74,6 +80,7 @@ function shuffleCards() {
     }
 }
 
+
 function generateCards() {
     for (let card of cards) {
         const cardElement = document.createElement("div");
@@ -88,6 +95,12 @@ function generateCards() {
         if (numberPlayers === "two") {
             document.querySelector(".player").textContent = currentPlayer + ", it's you're turn!";
         }
+        else
+            document.querySelector(".player").textContent = "Have fun, " + currentPlayer + "!";
+        { setTimeout(() => {
+            document.querySelector(".player").textContent = ""
+        }, 10000);}
+
         gridContainer.appendChild(cardElement);
         cardElement.addEventListener("click", flipCard);
     }
