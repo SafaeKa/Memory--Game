@@ -156,4 +156,18 @@ tr:hover {
     align-items: flex-end;
 }
 
+.timer-container {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+.timer-text {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 5px;
+}
+.timer {
+    display: inline-block;
+}
+
 
