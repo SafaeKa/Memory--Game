@@ -10,10 +10,13 @@
 <p> <span class="player"></span></p>
 <div class="grid-container">
 </div>
-<div class="scoreAndAttempts">
+<div class="gameInformation">
     <div class="Player1">
         <p> <span class="attemptsPlayer1"></span></p>
         <p> <span class="scorePlayer1"></span></p>
+    </div>
+    <div class="actions">
+        <button onclick="restart()">Restart</button>
     </div>
     <div class="Player2">
         <p> <span class="attemptsPlayer2"></span></p>
@@ -23,9 +26,6 @@
 <div class="timer-container">
     <p class="timer-text">Timer:</p>
     <p class="timer">00:00</p>
-</div>
-<div class="actions">
-    <button onclick="restart()">Restart</button>
 </div>
 <script src="game.js"></script>
 </body>

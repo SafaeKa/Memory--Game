@@ -12,6 +12,7 @@ h1 {
 .actions {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .actions button {
@@ -143,7 +144,7 @@ tr:hover {
     background-color: #ddd;
 }
 
-.scoreAndAttempts {
+.gameInformation {
     display: flex;
     justify-content: space-between;
     padding-left: 50px;
@@ -151,9 +152,14 @@ tr:hover {
 
 }
 
+.Player1{
+    font-size: 20px;
+}
+
 .Player2 {
     justify-content: flex-end;
     align-items: flex-end;
+    font-size: 20px;
 }
 
 .timer-container {
