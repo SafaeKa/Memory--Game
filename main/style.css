@@ -12,7 +12,7 @@ h1 {
 h2{
     text-align: center;
     font-weight: 300;
-    color: crimson;
+    color: #ffbc80;
 
 }
 
@@ -37,8 +37,12 @@ h2{
     margin-left: 0.5%;
     margin-right: 0.5%;
     font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
+
 
 .level {
     display: flex;
