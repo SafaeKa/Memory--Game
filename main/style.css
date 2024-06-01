@@ -68,12 +68,41 @@ h2{
 
 }
 
+.cards-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .grid-container {
     display: grid;
     justify-content: center;
+    align-items: center;
+    justify-items: center;
     grid-gap: 16px;
     grid-template-columns: repeat(6, 140px);
     grid-template-rows: repeat(2, calc(140px / 2 * 3));
+
+}
+
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* For screens between 600px and 900px */
+@media (min-width: 600px) and (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* For screens larger than 900px */
+@media (min-width: 900px) {
+    .grid-container {
+        grid-template-columns: repeat(6, 1fr);
+    }
 }
 
 .container {
