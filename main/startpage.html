@@ -6,20 +6,22 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<h1>Memory</h1>
+<h2 class="description">Choose the theme, number of players and difficulty level of your game! Don't forget to enter your name(s).</h2>
 <div class="container">
     <div class ="choice">
     <div class ="theme">
     <text>theme:</text>
-    <button onclick="changeBackgroundColor(id,'1')" id="flags">flags</button>
-    <button onclick="changeBackgroundColor(id,'1')" id="fruits">fruits</button>
-    <button onclick="changeBackgroundColor(id,'1')" id="nature">nature</button>
-    <button onclick="changeBackgroundColor(id,'1')" id="random">random</button>
+    <button onclick="changeBackgroundColor(id,'1')" id="flags">flags🏳️</button>
+    <button onclick="changeBackgroundColor(id,'1')" id="fruits">fruits🍒</button>
+    <button onclick="changeBackgroundColor(id,'1')" id="nature">nature 🌳</button>
+    <button onclick="changeBackgroundColor(id,'1')" id="random">random 🎲</button>
 </div>
 
     <div class ="player">
         <text>player:</text>
-        <button onclick="handlePlayerClick('solo', 'solo')" id="solo">solo</button>
-        <button onclick="handlePlayerClick('two', 'two')" id="two">two</button>
+        <button onclick="handlePlayerClick('solo', 'solo')" id="solo">solo 👤</button>
+        <button onclick="handlePlayerClick('two', 'two')" id="two">two 👥</button>
     </div>
      <div class="player-names"><form action="connect.php" method="post" id="playerNamesForm" style="display: none;">
          <input type="text" id="player1Name" name="player1Name" placeholder="Player 1 Name">
@@ -28,9 +30,9 @@
      </div>
     <div class ="level">
         <text>level:</text>
-        <button onclick="changeBackgroundColor(id,'3')" id="easy">easy</button>
-        <button onclick="changeBackgroundColor(id,'3')" id="medium">medium</button>
-        <button onclick="changeBackgroundColor(id,'3')" id="hard">hard</button>
+        <button onclick="changeBackgroundColor(id,'3')" id="easy">easy ⭐</button>
+        <button onclick="changeBackgroundColor(id,'3')" id="medium">medium ⭐⭐</button>
+        <button onclick="changeBackgroundColor(id,'3')" id="hard">hard ⭐⭐⭐</button>
     </div></div></div>
 
 <div class="actions">

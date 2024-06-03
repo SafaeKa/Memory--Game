@@ -21,6 +21,9 @@ function changeBackgroundColor(id, value) {
 function checkOptionsSelected() {
     const startButton = document.getElementById("startButton");
     startButton.disabled = !(colored[1] !== "" && colored[2] !== "" && colored[3] !== "");
+    if ( (colored[1] !== "" && colored[2] !== "" && colored[3] !== "")) {
+        document.querySelector(".description").textContent = "";
+    }
 }
 
 function generateLink() {
