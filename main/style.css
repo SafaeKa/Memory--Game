@@ -216,5 +216,7 @@ tr:hover {
 .timer {
     display: inline-block;
 }
-
+tr:nth-child(even) {
+    background-color: #697682;
+}
 
