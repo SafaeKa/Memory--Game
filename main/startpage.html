@@ -23,9 +23,9 @@
         <button onclick="handlePlayerClick('solo', 'solo')" id="solo">solo 👤</button>
         <button onclick="handlePlayerClick('two', 'two')" id="two">two 👥</button>
     </div>
-     <div class="player-names"><form action="connect.php" method="post" id="playerNamesForm" style="display: none;">
-         <input type="text" id="player1Name" name="player1Name" placeholder="Player 1 Name">
-         <input type="text" id="player2Name" name="player2Name" placeholder="Player 2 Name">
+     <div class="player-names"><form id="playerNamesForm" style="display: none;">
+         <input type="text" id="player1Name" name="player1Name" placeholder="Player 1 Name" oninput="checkOptionsSelected()">
+         <input type="text" id="player2Name" name="player2Name" placeholder="Player 2 Name" oninput="checkOptionsSelected()">
      </form>
      </div>
     <div class ="level">
@@ -36,7 +36,7 @@
     </div></div></div>
 
 <div class="actions">
-    <button id="startButton" onclick="generateLink()" disabled>Start</button>
+    <button id="startButton" onclick="generateLink()" style="display: none;">Start</button>
     <script src="startpage.js"></script>
 </div>
 </body>
