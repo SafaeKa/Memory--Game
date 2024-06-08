@@ -7,6 +7,7 @@ let colored = {
 const playerNamesForm = document.getElementById('playerNamesForm');
 const player1Input = document.getElementById('player1Name');
 const player2Input = document.getElementById('player2Name');
+const descriptionText = document.querySelector('.description');
 
 function changeBackgroundColor(id, value) {
     if (colored[value]) {
@@ -33,8 +34,10 @@ function checkOptionsSelected() {
 
     if (allOptionsSelected && playerNamesFilled) {
         startButton.style.display = "block";
+        descriptionText.style.display = "none";
     } else {
         startButton.style.display = "none";
+        descriptionText.style.display = "block";
     }
 }
 
