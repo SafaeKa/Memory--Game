@@ -1,6 +1,13 @@
 /.idea
+# Ignore Maven wrapper files
 backend/mvnw
-backend\mvnw.cmd
-backend\HELP.md
-backend\.mvn
-backend\target
+backend/mvnw.cmd
+
+# Ignore HELP.md file
+backend/HELP.md
+
+# Ignore .mvn directory
+backend/.mvn/
+
+# Ignore target directory and its contents
+backend/target/
