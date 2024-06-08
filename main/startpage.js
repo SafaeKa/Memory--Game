@@ -34,10 +34,10 @@ function checkOptionsSelected() {
 
     if (allOptionsSelected && playerNamesFilled) {
         startButton.style.display = "block";
-        descriptionText.style.display = "none";
+        descriptionText.classList.add('hidden');
     } else {
         startButton.style.display = "none";
-        descriptionText.style.display = "block";
+        descriptionText.classList.remove('hidden');
     }
 }
 
