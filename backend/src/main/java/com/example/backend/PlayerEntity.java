@@ -1,29 +1,30 @@
 package com.example.backend;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
-@jakarta.persistence.Entity
+@Entity
 @Table(name = "players")
-public class Entity {
+public class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Long id; //beware that the long variable may cause problems, int?
+    private Long id; //beware that the long variable may cause problems, int?
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "rank")
-    private int rank;
+    private Integer rank;
 
     @Column(name="score")
-    private int score;
+    private Integer score;
 
-    public Entity (){ this.id = IdGenerator.generateId();}
 }
+
