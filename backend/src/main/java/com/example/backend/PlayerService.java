@@ -15,6 +15,11 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
+
+
+    //get all the players
+    public List<PlayerEntity> getAllPlayers() { return playerRepository.findAll();}
+
     //retrieves a player from the database by id
     public Optional<PlayerEntity> getPlayer(Long id) throws InvalidArgumentException {
         Optional<PlayerEntity> playerById = playerRepository.findById(id);

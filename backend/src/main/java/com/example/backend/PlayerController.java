@@ -21,6 +21,14 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
+    //return all players in the database
+    @GetMapping(path="/player", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PlayerEntity>> getAllPlayers(){
+        List<PlayerEntity> allPlayers = playerService.getAllPlayers();
+        return new ResponseEntity<>(allPlayers, HttpStatus.OK);
+    }
+
+
     //get a specific player from the database
     @GetMapping(path="/player/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional<PlayerEntity>> getPlayer(@PathVariable Long id){
