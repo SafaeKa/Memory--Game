@@ -4,6 +4,7 @@ let colored = {
     3: ""
 };
 
+// es sollte sichergestellt werden, dass diese Aufrufe erst **nach** dem DOMContentLoadedEvent erfolgen!
 const playerNamesForm = document.getElementById('playerNamesForm');
 const player1Input = document.getElementById('player1Name');
 const player2Input = document.getElementById('player2Name');

@@ -12,6 +12,8 @@
     <div class ="choice">
     <div class ="theme">
     <text>theme:</text>
+    <!-- Ich persönlich bevorzuge das Setzen von Event-Handlern im Code (mit document.addEventListener), aber auch das ist gültiger JavaScript-Code  -->
+     <!-- Die Übergabe der ID ist nicht sehr sauber gelöst, man kann auch die event-Details bzw. das auslösende Objekt übergeben, damit erspart man sich auch die neue Selektion des Objekts aus dem DOM und kann direkt auf diesem agieren, was den JavaScript-Code noch einfacher macht; siehe z.B. https://stackoverflow.com/a/1553668 -->
     <button onclick="changeBackgroundColor(id,'1')" id="flags">flags🏳️</button>
     <button onclick="changeBackgroundColor(id,'1')" id="fruits">fruits🍒</button>
     <button onclick="changeBackgroundColor(id,'1')" id="nature">nature 🌳</button>
@@ -20,6 +22,7 @@
 
     <div class ="player">
         <text>player:</text>
+        <!-- hier fände ich zwei Methoden sinnvoller als die Verwendung der gleichen Methode mit verschiedenen string-Parametern, aber das ist eher Geschmakssache -->
         <button onclick="handlePlayerClick('solo', 'solo')" id="solo">solo 👤</button>
         <button onclick="handlePlayerClick('two', 'two')" id="two">two 👥</button>
     </div>
@@ -29,6 +32,7 @@
      </form>
      </div>
     <div class ="level">
+        <!-- Hier würde ich mir die Auswahl eher als Teil des formulars wünschen. Dann ist auch die Logik beim Abschicken des Formulars etwas simpler und klarer verständlich. Ich bin sicher das würde auch euren Code vereinfachen -->
         <text>level:</text>
         <button onclick="changeBackgroundColor(id,'3')" id="easy">easy ⭐</button>
         <button onclick="changeBackgroundColor(id,'3')" id="medium">medium ⭐⭐</button>
