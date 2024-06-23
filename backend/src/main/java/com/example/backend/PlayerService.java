@@ -18,10 +18,17 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
+    public List<PlayerEntity> getAllPlayersWithRanks() {
+        List<PlayerEntity> players = playerRepository.findAll();
+        List<PlayerEntity> sortedPlayers = players.stream()
+                .sorted(Comparator.comparingInt(PlayerEntity::getScore).reversed())
+                .collect(Collectors.toList());
 
-
-    //get all the players
-    public List<PlayerEntity> getAllPlayers() { return playerRepository.findAll();}
+        for (int i = 0; i < sortedPlayers.size(); i++) {
+            sortedPlayers.get(i).setRank(i + 1);
+        }
+        return sortedPlayers;
+    }
 
     //retrieves a player from the database by id
     public Optional<PlayerEntity> getPlayer(Long id) throws InvalidArgumentException {
