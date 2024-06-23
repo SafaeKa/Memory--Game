@@ -3,8 +3,11 @@ package com.example.backend;
 import com.example.backend.exceptions.InvalidArgumentException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PlayerService {
@@ -33,7 +36,7 @@ public class PlayerService {
 
     //save a new player to the database
     public PlayerEntity createPlayer(PlayerEntity newPlayer) throws InvalidArgumentException{
-        if (newPlayer.getName()==null || newPlayer.getScore()==null || newPlayer.getRank()==null){
+        if (newPlayer.getName()==null || newPlayer.getScore()==null){
             throw new InvalidArgumentException();
         }
         return playerRepository.save(newPlayer);
