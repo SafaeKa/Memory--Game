@@ -22,7 +22,7 @@ const populateTable = async () => {
 
     playerData.forEach(item => {
         let row = document.createElement('tr');
-        row.innerHTML = <td>${item.rank}</td><td>${item.name}</td><td>${item.score}</td>;
+        row.innerHTML = `<td>${item.rank}</td><td>${item.name}</td><td>${item.score}</td>`;
         tableBody.appendChild(row);
     });
 };

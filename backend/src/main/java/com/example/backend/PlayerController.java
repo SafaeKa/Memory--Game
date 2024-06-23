@@ -29,7 +29,7 @@ public class PlayerController {
     }
 
 
-    //get a specific plaer from the database
+    //get a specific player from the database
     @GetMapping(path="/player/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional<PlayerEntity>> getPlayer(@PathVariable Long id){
         try {
