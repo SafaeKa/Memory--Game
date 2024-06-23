@@ -173,6 +173,14 @@ function scoreIncrement(){
 
     if (scorePlayer1 + scorePlayer2 === numberCards ) { // Check if all matches are found
         clearInterval(timerInterval); // Stop the timer
+        saveScores()
+            .then(() => {
+                // Redirect to scores.html after saving scores
+                window.location.href = 'scores.html';
+            })
+            .catch(error => {
+                console.error('Error saving scores:', error);
+            });
     }
 }
 
@@ -219,5 +227,28 @@ function updateTimer() {
 
 function padZero(num) {
     return (num < 10 ? '0' : '') + num;
+}
+async function saveScores() {
+    const url = 'http://localhost:8080/player';
+    const scores = numberPlayers === "two" ?
+        [{ name: player1, score: scorePlayer1 }, { name: player2, score: scorePlayer2 }] :
+        [{ name: player1, score: scorePlayer1 }];
+
+    // Save scores for each player
+    for (const player of scores) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(player)
+        });
+        if (!response.ok) {
+            console.error('Failed to save player score');
+        }
+    }
+
+    // Redirect to scores.html after saving scores
+    window.location.href = 'scores.html';
 }
 

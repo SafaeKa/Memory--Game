@@ -24,8 +24,8 @@ public class PlayerController {
     //return all players in the database
     @GetMapping(path="/player", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PlayerEntity>> getAllPlayers(){
-        List<PlayerEntity> allPlayers = playerService.getAllPlayers();
-        return new ResponseEntity<>(allPlayers, HttpStatus.OK);
+        List<PlayerEntity> allPlayersWithRanks = playerService.getAllPlayersWithRanks();
+        return new ResponseEntity<>(allPlayersWithRanks, HttpStatus.OK);
     }
 
 

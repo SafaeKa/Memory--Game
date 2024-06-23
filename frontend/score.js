@@ -1,16 +1,33 @@
-let data = [
-    { Rank: 1, Name: 'Player 1', Score: 1000 },
-    { Rank: 2, Name: 'Player 2', Score: 800 },
-    { Rank: 3, Name: 'Player 3', Score: 600 },
-    { Rank: 1, Name: 'Player 1', Score: 1000 },
-    { Rank: 2, Name: 'Player 2', Score: 800 },
-    { Rank: 3, Name: 'Player 3', Score: 600 },
-];
+const fetchPlayerData = async () => {
+    const url = 'http://localhost:8080/player';
 
-let tableBody = document.querySelector("#scoreTable tbody");
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to fetch player data');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching player data:', error);
+        return []; // Return empty array in case of error
+    }
+};
 
-data.forEach(item => {
-    let row = document.createElement('tr');
-    row.innerHTML = `<td>${item.Rank}</td><td>${item.Name}</td><td>${item.Score}</td>`;
-    tableBody.appendChild(row);
+// Populate the table with player data
+const populateTable = async () => {
+    const tableBody = document.querySelector('#scoreTable tbody');
+    const playerData = await fetchPlayerData();
+
+
+    playerData.forEach(item => {
+        let row = document.createElement('tr');
+        row.innerHTML = `<td>${item.rank}</td><td>${item.name}</td><td>${item.score}</td>`;
+        tableBody.appendChild(row);
+    });
+};
+
+// Execute populateTable function when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    populateTable();
 });
