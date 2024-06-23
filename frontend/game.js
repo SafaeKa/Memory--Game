@@ -32,8 +32,9 @@ if (numberPlayers === "two") {
     textAttemptsPlayer2 = "Attempts " + player2 + ": ";
 }
 let timerInterval; // Timer interval ID
-let totalSeconds = 0; // Total seconds elapsed
+let totalSeconds; // Total seconds elapsed
 let currentPlayer = player1
+let timerLength;
 
 if (numberPlayers === "solo"){
     textScorePlayer1 = "Score: "
@@ -46,6 +47,18 @@ if (numberPlayers === "two") {
     document.querySelector(".attemptsPlayer2").textContent = textAttemptsPlayer2 + attemptsPlayer2;
     document.querySelector(".scorePlayer2").textContent = textScorePlayer2 + scorePlayer2;
 }
+
+if (difficulty === "4"){
+    timerLength = 30;
+}
+if (difficulty === "6"){
+    timerLength = 45;
+}
+if (difficulty === "9"){
+    timerLength = 75;
+}
+totalSeconds = timerLength;
+
 
 //part responsible for getting the cards
 fetch(theme)
@@ -197,7 +210,7 @@ function restart() {
     attemptsPlayer1 = 0;
     scorePlayer2 = 0;
     attemptsPlayer2 = 0;
-    totalSeconds = 0; // Reset total seconds
+    totalSeconds = timerLength; // Reset total seconds
     document.querySelector(".attemptsPlayer1").textContent = textAttemptsPlayer1 + attemptsPlayer1;
     document.querySelector(".scorePlayer1").textContent = textScorePlayer1 + scorePlayer1;
 
@@ -218,11 +231,22 @@ function startTimer() {
 }
 
 function updateTimer() {
-    totalSeconds++;
+    totalSeconds--;
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     const formattedTime = padZero(minutes) + ":" + padZero(seconds);
     document.querySelector(".timer").textContent = formattedTime;
+    if (totalSeconds === 0){
+        console.log ("finish");
+        saveScores()
+            .then(() => {
+                // Redirect to scores.html after saving scores
+                window.location.href = 'scores.html';
+            })
+            .catch(error => {
+                console.error('Error saving scores:', error);
+            });
+    }
 }
 
 function padZero(num) {
