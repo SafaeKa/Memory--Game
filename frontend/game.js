@@ -35,6 +35,7 @@ let timerInterval; // Timer interval ID
 let totalSeconds; // Total seconds elapsed
 let currentPlayer = player1
 let timerLength;
+let timerInitialState
 
 if (numberPlayers === "solo"){
     textScorePlayer1 = "Score: "
@@ -50,15 +51,18 @@ if (numberPlayers === "two") {
 
 if (difficulty === "4"){
     timerLength = 30;
+    timerInitialState = "00:30";
 }
 if (difficulty === "6"){
     timerLength = 45;
+    timerInitialState = "00:45"
 }
 if (difficulty === "9"){
     timerLength = 75;
+    timerInitialState = "01:15"
 }
 totalSeconds = timerLength;
-
+document.querySelector(".timer").textContent = "" + timerInitialState;
 
 //part responsible for getting the cards
 fetch(theme)
@@ -219,7 +223,7 @@ function restart() {
         document.querySelector(".scorePlayer2").textContent = textScorePlayer2 + scorePlayer2;
 
     }
-    document.querySelector(".timer").textContent = "00:00"; // Reset timer display
+    document.querySelector(".timer").textContent = "" + timerInitialState; // Reset timer display
     clearInterval(timerInterval); // Clear existing timer interval
     startTimer(); // Start the timer again
     gridContainer.innerHTML = "";
@@ -253,10 +257,14 @@ function padZero(num) {
     return (num < 10 ? '0' : '') + num;
 }
 async function saveScores() {
+    let calculateScorePlayer1 = parseInt(scorePlayer1/attemptsPlayer1*10);
+    if (numberPlayers === "two"){
+        let calculateScorePlayer2 = parseInt(scorePlayer2/attemptsPlayer2*10);
+    }
     const url = 'http://localhost:8080/player';
     const scores = numberPlayers === "two" ?
-        [{ name: player1, score: scorePlayer1 }, { name: player2, score: scorePlayer2 }] :
-        [{ name: player1, score: scorePlayer1 }];
+        [{ name: player1, score: calculateScorePlayer1 }, { name: player2, score: calculateScorePlayer2 }] :
+        [{ name: player1, score: calculateScorePlayer1 }];
 
     // Save scores for each player
     for (const player of scores) {
