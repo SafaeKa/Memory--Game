@@ -30,4 +30,9 @@ const populateTable = async () => {
 // Execute populateTable function when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     populateTable();
+
+    const playAgainButton = document.getElementById('playAgainButton');
+    playAgainButton.addEventListener('click', () => {
+        window.location.href = 'startpage.html';
+    });
 });
