@@ -1,4 +1,6 @@
 import Timer from "./timer.js";
+import Card from "./card.js";
+import Player from "./player.js";
 
 const gridContainer = document.querySelector(".grid-container"); //reference to grid container
 let numberCards = 4; //default number
@@ -9,10 +11,13 @@ const difficulty = urlParams.get('difficulty');
 const theme = urlParams.get('theme');
 const numberPlayers = urlParams.get('player')
 //geändert
-const player1 = (urlParams.get('player1Name')).charAt(0).toUpperCase() + (urlParams.get('player1Name')).slice(1);
-let player2 = 0;
+const player1Name = (urlParams.get('player1Name')).charAt(0).toUpperCase() + (urlParams.get('player1Name')).slice(1);
+const player1 = new Player(player1Name);
+
+let player2 = null;
 if (numberPlayers === "two") {
-    player2 = (urlParams.get('player2Name')).charAt(0).toUpperCase() + (urlParams.get('player2Name')).slice(1);
+    const player2Name = (urlParams.get('player2Name')).charAt(0).toUpperCase() + (urlParams.get('player2Name')).slice(1);
+    player2 = new Player(player2Name);
 }
 if (difficulty) {
     numberCards = parseInt(difficulty);
@@ -20,36 +25,20 @@ if (difficulty) {
 
 let cards = [];
 let cardsAll = [];
-let firstCard, secondCard; //cards which are compared
-let lockBoard = false; //match
-let scorePlayer1 = 0;
-let textScorePlayer1 = `Score ${player1}: `;
-let textAttemptsPlayer1 = `Attempts ${player1}: `;
-let attemptsPlayer1 = 0;
-let scorePlayer2 = 0;
-let attemptsPlayer2 = 0;
-let textScorePlayer2 = 0;
-let textAttemptsPlayer2 = 0;
-if (numberPlayers === "two") {
-    textScorePlayer2 = `Score ${player2}: `;
-    textAttemptsPlayer2 = `Attempts ${player2}: `;
-}
-/*let timerInterval; // Timer interval ID
-let totalSeconds; // Total seconds elapsed*/
-let currentPlayer = player1
-/*let timerLength;
-let timerInitialState*/
+let firstCard, secondCard;
+let lockBoard = false;
+let currentPlayer = player1;
 
-if (numberPlayers === "solo"){
-    textScorePlayer1 = "Score: "
-    textAttemptsPlayer1 = "Attempts: "
-}
+/*if (numberPlayers === "solo") {
+    player1.getScoreText = () => "Score: ";
+    player1.getAttemptsText = () => "Attempts: ";
+}*/
 
-document.querySelector(".attemptsPlayer1").textContent = textAttemptsPlayer1 + attemptsPlayer1;
-document.querySelector(".scorePlayer1").textContent =  textScorePlayer1 + scorePlayer1;
+document.querySelector(".attemptsPlayer1").textContent = player1.getAttemptsText();
+document.querySelector(".scorePlayer1").textContent = player1.getScoreText();
 if (numberPlayers === "two") {
-    document.querySelector(".attemptsPlayer2").textContent = textAttemptsPlayer2 + attemptsPlayer2;
-    document.querySelector(".scorePlayer2").textContent = textScorePlayer2 + scorePlayer2;
+    document.querySelector(".attemptsPlayer2").textContent = player2.getAttemptsText();
+    document.querySelector(".scorePlayer2").textContent = player2.getScoreText();
 }
 let timerLength;
 let timerInitialState;
@@ -91,6 +80,14 @@ fetch(theme)
         shuffleCards();
         generateCards();
         gameTimer.start();
+        if (numberPlayers === "two") {
+            document.querySelector(".player").textContent = currentPlayer.name + ", it's your turn!";
+        } else {
+            document.querySelector(".player").textContent = "Have fun, " + currentPlayer.name + "!";
+            setTimeout(() => {
+                document.querySelector(".player").textContent = "";
+            }, 10000);
+        }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -115,38 +112,11 @@ function shuffleCards() {
 
 
 function generateCards() {
-    for (let card of cards) {
-        const cardElement = document.createElement("div");
-        cardElement.classList.add("card");
-        cardElement.setAttribute("data-name", card.name);
-
-        const frontElement = document.createElement("div");
-        frontElement.classList.add("front");
-
-        const frontImage = document.createElement("img");
-        frontImage.classList.add("front-image");
-        frontImage.src = card.image;
-        frontElement.appendChild(frontImage);
-
-        const backElement = document.createElement("div");
-        backElement.classList.add("back");
-
-        cardElement.appendChild(frontElement);
-        cardElement.appendChild(backElement);
-
-        if (numberPlayers === "two") {
-            document.querySelector(".player").textContent = currentPlayer + ", it's your turn!";
-        } else {
-            document.querySelector(".player").textContent = "Have fun, " + currentPlayer + "!";
-        }
-
-        setTimeout(() => {
-            document.querySelector(".player").textContent = "";
-        }, 10000);
-
-        gridContainer.appendChild(cardElement);
-        cardElement.addEventListener("click", flipCard);
+    for (let cardData of cards) {
+        const card = new Card(cardData.name, cardData.image, flipCard);
+        gridContainer.appendChild(card.cardElement);
     }
+
 }
 function game(){
 
@@ -156,31 +126,32 @@ function game(){
     else if (currentPlayer === player2){
         currentPlayer = player1
     }
-    document.querySelector(".player").textContent = currentPlayer + ", it's you're turn!";
+    document.querySelector(".player").textContent = currentPlayer.name + ", it's you're turn!";
 }
 
 
-function flipCard() {
+function flipCard(cardElement) {
     if (lockBoard) return;
-    if (this === firstCard) return;
+    if (cardElement === firstCard) return;
 
-    this.classList.add("flipped");
+    cardElement.classList.add("flipped");
 
     if (!firstCard) {
-        firstCard = this;
+        firstCard = cardElement;
         return;
     }
 
-    secondCard = this;
-    currentPlayer === player1 ? attemptsPlayer1++ : attemptsPlayer2 ++;
-    document.querySelector(".attemptsPlayer1").textContent = textAttemptsPlayer1 + attemptsPlayer1;
+    secondCard = cardElement;
+    currentPlayer.incrementAttempts();
+    document.querySelector(".attemptsPlayer1").textContent = player1.getAttemptsText();
     if (numberPlayers === "two") {
-        document.querySelector(".attemptsPlayer2").textContent = textAttemptsPlayer2 + attemptsPlayer2;
+        document.querySelector(".attemptsPlayer2").textContent = player2.getAttemptsText();
     }
     lockBoard = true;
 
     checkForMatch();
 }
+
 
 function checkForMatch() {
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
@@ -208,13 +179,21 @@ function unflipCards() {
 }
 
 function scoreIncrement(){
-    currentPlayer === player1 ? scorePlayer1++ : scorePlayer2 ++;
-    document.querySelector(".scorePlayer1").textContent = textScorePlayer1+ scorePlayer1;
+    let allMatchesFound = false;
+    currentPlayer.incrementScore();
+    document.querySelector(".scorePlayer1").textContent = player1.getScoreText();
     if (numberPlayers === "two") {
-        document.querySelector(".scorePlayer2").textContent = textScorePlayer2 + scorePlayer2;
+        document.querySelector(".scorePlayer2").textContent = player2.getScoreText();
+        if (player1.score + player2.score === numberCards ){
+            allMatchesFound = true;
+        }
+    } else {
+        if (player1.score === numberCards ){
+            allMatchesFound = true;
+        }
     }
 
-    if (scorePlayer1 + scorePlayer2 === numberCards ) { // Check if all matches are found
+    if (allMatchesFound) { // Check if all matches are found
         gameTimer.stop(); // Stop the timer
         saveScores()
             .then(() => {
@@ -235,64 +214,18 @@ function resetBoard() {
 
 window.restart = function() {
     window.location.reload();
-    /*resetBoard();
-    shuffleCards();
-    scorePlayer1 = 0;
-    attemptsPlayer1 = 0;
-    scorePlayer2 = 0;
-    attemptsPlayer2 = 0;
-    totalSeconds = timerLength; // Reset total seconds
-    document.querySelector(".attemptsPlayer1").textContent = textAttemptsPlayer1 + attemptsPlayer1;
-    document.querySelector(".scorePlayer1").textContent = textScorePlayer1 + scorePlayer1;
-
-    if (numberPlayers === "two"){
-        document.querySelector(".attemptsPlayer2").textContent = textAttemptsPlayer2 + attemptsPlayer2;
-        document.querySelector(".scorePlayer2").textContent = textScorePlayer2 + scorePlayer2;
-
-    }
-    document.querySelector(".timer").textContent = "" + timerInitialState; // Reset timer display
-    clearInterval(timerInterval); // Clear existing timer interval
-    startTimer(); // Start the timer again
-    gridContainer.innerHTML = "";
-    generateCards();*/
 }
 
-/*function startTimer() {
-    timerInterval = setInterval(updateTimer, 1000); // Update timer every second
-}*/
-
-/*function updateTimer() {
-    totalSeconds--;
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    const formattedTime = padZero(minutes) + ":" + padZero(seconds);
-    document.querySelector(".timer").textContent = formattedTime;
-    if (totalSeconds === 0){
-        console.log ("finish");
-        saveScores()
-            .then(() => {
-                // Redirect to scores.html after saving scores
-                window.location.href = 'scores.html';
-            })
-            .catch(error => {
-                console.error('Error saving scores:', error);
-            });
-    }
-}
-
-function padZero(num) {
-    return (num < 10 ? '0' : '') + num;
-}*/
 async function saveScores() {
-    let calculateScorePlayer1 = parseInt(scorePlayer1/attemptsPlayer1*10);
+    let calculateScorePlayer1 = player1.score/player1.attempts*10;
     let calculateScorePlayer2 ;
     if (numberPlayers === "two"){
-        calculateScorePlayer2 = parseInt(scorePlayer2/attemptsPlayer2*10);
+        calculateScorePlayer2 = player2.score/player2.attempts*10;
     }
     const url = 'http://localhost:8080/player';
     const scores = numberPlayers === "two" ?
-        [{ name: player1, score: calculateScorePlayer1 }, { name: player2, score: calculateScorePlayer2 }] :
-        [{ name: player1, score: calculateScorePlayer1 }];
+        [{ name: player1.name, score: calculateScorePlayer1 }, { name: player2.name, score: calculateScorePlayer2 }] :
+        [{ name: player1.name, score: calculateScorePlayer1 }];
 
     // Save scores for each player
     for (const player of scores) {
