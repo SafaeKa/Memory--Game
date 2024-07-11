@@ -10,33 +10,34 @@
 <h2 class="description">Choose the theme, number of players and difficulty level of your game! Don't forget to enter your name(s).</h2>
 <div class="container">
     <div class ="choice">
-    <div class ="theme">
-    <text>theme:</text>
-    <button onclick="changeBackgroundColor(id,'1')" id="flags">flags🏳️</button>
-    <button onclick="changeBackgroundColor(id,'1')" id="fruits">fruits🍒</button>
-    <button onclick="changeBackgroundColor(id,'1')" id="nature">nature 🌳</button>
-    <button onclick="changeBackgroundColor(id,'1')" id="random">random 🎲</button>
-</div>
+        <div class ="theme">
+            <text>theme:</text>
+            <button id="flags">flags🏳️</button>
+            <button id="fruits">fruits🍒</button>
+            <button id="nature">nature 🌳</button>
+            <button id="random">random 🎲</button>
+        </div>
 
-    <div class ="player">
-        <text>player:</text>
-        <button onclick="handlePlayerClick('solo', 'solo')" id="solo">solo 👤</button>
-        <button onclick="handlePlayerClick('two', 'two')" id="two">two 👥</button>
-    </div>
-     <div class="player-names"><form id="playerNamesForm" style="display: none;">
-         <input type="text" id="player1Name" name="player1Name" placeholder="Player 1 Name" oninput="checkOptionsSelected()">
-         <input type="text" id="player2Name" name="player2Name" placeholder="Player 2 Name" oninput="checkOptionsSelected()">
-     </form>
-     </div>
-    <div class ="level">
-        <text>level:</text>
-        <button onclick="changeBackgroundColor(id,'3')" id="easy">easy ⭐</button>
-        <button onclick="changeBackgroundColor(id,'3')" id="medium">medium ⭐⭐</button>
-        <button onclick="changeBackgroundColor(id,'3')" id="hard">hard ⭐⭐⭐</button>
-    </div></div></div>
+        <div class ="player">
+            <text>player:</text>
+            <button id="solo">solo 👤</button>
+            <button id="two">two 👥</button>
+        </div>
+        <div class="player-names">
+            <form id="playerNamesForm" style="display: none;">
+                <input type="text" id="player1Name" name="player1Name" placeholder="Player 1 Name" oninput="checkOptionsSelected()">
+                <input type="text" id="player2Name" name="player2Name" placeholder="Player 2 Name" oninput="checkOptionsSelected()">
+            </form>
+        </div>
+        <div class ="level">
+            <text>level:</text>
+            <button id="easy">easy ⭐</button>
+            <button id="medium">medium ⭐⭐</button>
+            <button id="hard">hard ⭐⭐⭐</button>
+        </div></div></div>
 
 <div class="actions">
-    <button id="startButton" onclick="generateLink()" style="display: none;">Start</button>
+    <button id="startButton" style="display: none;">Start</button>
     <script src="startpage.js"></script>
 </div>
 </body>

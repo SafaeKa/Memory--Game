@@ -6,6 +6,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 const theme = urlParams.get('theme');
 const numberPlayers = urlParams.get('player')
+//geändert
 const player1 = (urlParams.get('player1Name')).charAt(0).toUpperCase() + (urlParams.get('player1Name')).slice(1);
 let player2 = 0;
 if (numberPlayers === "two") {
@@ -20,16 +21,16 @@ let cardsAll = [];
 let firstCard, secondCard; //cards which are compared
 let lockBoard = false; //match
 let scorePlayer1 = 0;
-let textScorePlayer1 = "Score " + player1 + ": ";
+let textScorePlayer1 = `Score ${player1}: `;
+let textAttemptsPlayer1 = `Attempts ${player1}: `;
 let attemptsPlayer1 = 0;
-let textAttemptsPlayer1 = "Attempts " + player1 + ": ";
 let scorePlayer2 = 0;
 let attemptsPlayer2 = 0;
 let textScorePlayer2 = 0;
 let textAttemptsPlayer2 = 0;
 if (numberPlayers === "two") {
-    textScorePlayer2 = "Score " + player2 + ": ";
-    textAttemptsPlayer2 = "Attempts " + player2 + ": ";
+    textScorePlayer2 = `Score ${player2}: `;
+    textAttemptsPlayer2 = `Attempts ${player2}: `;
 }
 let timerInterval; // Timer interval ID
 let totalSeconds; // Total seconds elapsed
@@ -66,36 +67,36 @@ document.querySelector(".timer").textContent = "" + timerInitialState;
 
 //part responsible for getting the cards
 fetch(theme)
-    .then((res) => res.json())
+    .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch theme');
+        return res.json();
+    })
     .then((data) => {
         cardsAll = [...data];
         shuffleCards();
         generateCards();
-        startTimer(); // Start the timer when the game starts
+        startTimer();
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 
 
-function shuffleCards() {
-    let currentIndex = cardsAll.length,
-        randomIndex,
-        temporaryValue;
+function shuffleArray(array) {
+    let currentIndex = array.length, randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = cardsAll[currentIndex];
-        cardsAll[currentIndex] = cardsAll[randomIndex];
-        cardsAll[randomIndex] = temporaryValue;
-    }
-    cards = [...cardsAll.slice(0, numberCards), ...cardsAll.slice(0, numberCards)]; //copy every data value -> twice, second argument of slice is number of cards
-    currentIndex = cards.length;
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = cards[currentIndex];
-        cards[currentIndex] = cards[randomIndex];
-        cards[randomIndex] = temporaryValue;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
 }
+
+function shuffleCards() {
+    shuffleArray(cardsAll);
+    cards = [...cardsAll.slice(0, numberCards), ...cardsAll.slice(0, numberCards)];
+    shuffleArray(cards);
+}
+
 
 
 function generateCards() {
@@ -103,20 +104,30 @@ function generateCards() {
         const cardElement = document.createElement("div");
         cardElement.classList.add("card");
         cardElement.setAttribute("data-name", card.name);
-        cardElement.innerHTML = `
-        <div class="front">
-        <img class="front-image" src=${card.image} />
-        </div>
-        <div class="back"></div>
-        `;
+
+        const frontElement = document.createElement("div");
+        frontElement.classList.add("front");
+
+        const frontImage = document.createElement("img");
+        frontImage.classList.add("front-image");
+        frontImage.src = card.image;
+        frontElement.appendChild(frontImage);
+
+        const backElement = document.createElement("div");
+        backElement.classList.add("back");
+
+        cardElement.appendChild(frontElement);
+        cardElement.appendChild(backElement);
+
         if (numberPlayers === "two") {
-            document.querySelector(".player").textContent = currentPlayer + ", it's you're turn!";
-        }
-        else
+            document.querySelector(".player").textContent = currentPlayer + ", it's your turn!";
+        } else {
             document.querySelector(".player").textContent = "Have fun, " + currentPlayer + "!";
-        { setTimeout(() => {
-            document.querySelector(".player").textContent = ""
-        }, 10000);}
+        }
+
+        setTimeout(() => {
+            document.querySelector(".player").textContent = "";
+        }, 10000);
 
         gridContainer.appendChild(cardElement);
         cardElement.addEventListener("click", flipCard);
@@ -208,7 +219,8 @@ function resetBoard() {
 }
 
 function restart() {
-    resetBoard();
+    window.location.reload();
+    /*resetBoard();
     shuffleCards();
     scorePlayer1 = 0;
     attemptsPlayer1 = 0;
@@ -227,7 +239,7 @@ function restart() {
     clearInterval(timerInterval); // Clear existing timer interval
     startTimer(); // Start the timer again
     gridContainer.innerHTML = "";
-    generateCards();
+    generateCards();*/
 }
 
 function startTimer() {
@@ -258,8 +270,9 @@ function padZero(num) {
 }
 async function saveScores() {
     let calculateScorePlayer1 = parseInt(scorePlayer1/attemptsPlayer1*10);
+    let calculateScorePlayer2 ;
     if (numberPlayers === "two"){
-        let calculateScorePlayer2 = parseInt(scorePlayer2/attemptsPlayer2*10);
+        calculateScorePlayer2 = parseInt(scorePlayer2/attemptsPlayer2*10);
     }
     const url = 'http://localhost:8080/player';
     const scores = numberPlayers === "two" ?

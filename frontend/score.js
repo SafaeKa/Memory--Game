@@ -1,3 +1,11 @@
+class Score {
+    constructor(rank, name, score) {
+        this.rank = rank;
+        this.name = name;
+        this.score = score;
+    }
+}
+
 const fetchPlayerData = async () => {
     const url = 'http://localhost:8080/player';
 
@@ -7,11 +15,29 @@ const fetchPlayerData = async () => {
             throw new Error('Failed to fetch player data');
         }
         const data = await response.json();
-        return data;
+        return data.map((item, index) => new Score(index + 1, item.name, item.score));
     } catch (error) {
         console.error('Error fetching player data:', error);
         return []; // Return empty array in case of error
     }
+};
+
+const createTableRow = (score) => {
+    const row = document.createElement('tr');
+
+    const rankCell = document.createElement('td');
+    rankCell.textContent = score.rank;
+    row.appendChild(rankCell);
+
+    const nameCell = document.createElement('td');
+    nameCell.textContent = score.name;
+    row.appendChild(nameCell);
+
+    const scoreCell = document.createElement('td');
+    scoreCell.textContent = score.score;
+    row.appendChild(scoreCell);
+
+    return row;
 };
 
 // Populate the table with player data
@@ -19,10 +45,8 @@ const populateTable = async () => {
     const tableBody = document.querySelector('#scoreTable tbody');
     const playerData = await fetchPlayerData();
 
-
     playerData.forEach(item => {
-        let row = document.createElement('tr');
-        row.innerHTML = `<td>${item.rank}</td><td>${item.name}</td><td>${item.score}</td>`;
+        const row = createTableRow(item);
         tableBody.appendChild(row);
     });
 };
