@@ -1,3 +1,5 @@
+import Timer from "./timer.js";
+
 const gridContainer = document.querySelector(".grid-container"); //reference to grid container
 let numberCards = 4; //default number
 
@@ -32,11 +34,11 @@ if (numberPlayers === "two") {
     textScorePlayer2 = `Score ${player2}: `;
     textAttemptsPlayer2 = `Attempts ${player2}: `;
 }
-let timerInterval; // Timer interval ID
-let totalSeconds; // Total seconds elapsed
+/*let timerInterval; // Timer interval ID
+let totalSeconds; // Total seconds elapsed*/
 let currentPlayer = player1
-let timerLength;
-let timerInitialState
+/*let timerLength;
+let timerInitialState*/
 
 if (numberPlayers === "solo"){
     textScorePlayer1 = "Score: "
@@ -49,6 +51,8 @@ if (numberPlayers === "two") {
     document.querySelector(".attemptsPlayer2").textContent = textAttemptsPlayer2 + attemptsPlayer2;
     document.querySelector(".scorePlayer2").textContent = textScorePlayer2 + scorePlayer2;
 }
+let timerLength;
+let timerInitialState;
 
 if (difficulty === "4"){
     timerLength = 30;
@@ -62,8 +66,19 @@ if (difficulty === "9"){
     timerLength = 75;
     timerInitialState = "01:15"
 }
-totalSeconds = timerLength;
+//totalSeconds = timerLength;
 document.querySelector(".timer").textContent = "" + timerInitialState;
+const gameTimer = new Timer(timerLength, ".timer");
+gameTimer.onFinish = () => {
+    console.log("finish");
+    saveScores()
+        .then(() => {
+            window.location.href = 'scores.html';
+        })
+        .catch(error => {
+            console.error('Error saving scores:', error);
+        });
+};
 
 //part responsible for getting the cards
 fetch(theme)
@@ -75,7 +90,7 @@ fetch(theme)
         cardsAll = [...data];
         shuffleCards();
         generateCards();
-        startTimer();
+        gameTimer.start();
     })
     .catch(error => {
         console.error('Error:', error);
@@ -200,7 +215,7 @@ function scoreIncrement(){
     }
 
     if (scorePlayer1 + scorePlayer2 === numberCards ) { // Check if all matches are found
-        clearInterval(timerInterval); // Stop the timer
+        gameTimer.stop(); // Stop the timer
         saveScores()
             .then(() => {
                 // Redirect to scores.html after saving scores
@@ -218,7 +233,7 @@ function resetBoard() {
     lockBoard = false;
 }
 
-function restart() {
+window.restart = function() {
     window.location.reload();
     /*resetBoard();
     shuffleCards();
@@ -242,11 +257,11 @@ function restart() {
     generateCards();*/
 }
 
-function startTimer() {
+/*function startTimer() {
     timerInterval = setInterval(updateTimer, 1000); // Update timer every second
-}
+}*/
 
-function updateTimer() {
+/*function updateTimer() {
     totalSeconds--;
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -267,7 +282,7 @@ function updateTimer() {
 
 function padZero(num) {
     return (num < 10 ? '0' : '') + num;
-}
+}*/
 async function saveScores() {
     let calculateScorePlayer1 = parseInt(scorePlayer1/attemptsPlayer1*10);
     let calculateScorePlayer2 ;
