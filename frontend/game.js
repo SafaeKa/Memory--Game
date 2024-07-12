@@ -23,7 +23,7 @@ if (difficulty) {
     numberCards = parseInt(difficulty);
 }
 
-let cards = [];
+
 let cardsAll = [];
 let firstCard, secondCard;
 let lockBoard = false;
@@ -159,14 +159,6 @@ function scoreIncrement(){
 function allMatches(){
     gameTimer.stop(); // Stop the timer
     saveScores()
-        //delete 162-169?
-        .then(() => {
-            // Redirect to scores.html after saving scores
-            window.location.href = 'scores.html';
-        })
-        .catch(error => {
-            console.error('Error saving scores:', error);
-        });
 }
 
 function resetBoard() {
