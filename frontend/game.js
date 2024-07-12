@@ -38,17 +38,6 @@ if (numberPlayers === "two") {
 }
 
 const gameTimer = new Timer(difficulty, ".timer");
-gameTimer.onFinish = () => {
-    console.log("finish");
-    saveScores()
-        .then(() => {
-            window.location.href = 'scores.html';
-        })
-        .catch(error => {
-            console.error('Error saving scores:', error);
-        });
-};
-
 
 function flipCard(cardElement) {
     if (lockBoard) return;
@@ -125,6 +114,7 @@ function disableCards() {
 }
 
 function unflipCards() {
+    //After both cards have been revealed, they remain revealed for a short time so that the player can remember the second motive until they are turned over again.
     setTimeout(() => {
         firstCard.classList.remove("flipped");
         secondCard.classList.remove("flipped");
@@ -171,6 +161,10 @@ window.restart = function() {
     window.location.reload();
 }
 
+gameTimer.onFinish = () => {
+    saveScores();
+};
+
 async function saveScores() {
     let calculateScorePlayer1 = player1.score/player1.attempts*10;
     let calculateScorePlayer2 ;
@@ -178,9 +172,20 @@ async function saveScores() {
         calculateScorePlayer2 = player2.score/player2.attempts*10;
     }
     const url = 'http://localhost:8080/player';
-    const scores = numberPlayers === "two" ?
-        [{ name: player1.name, score: calculateScorePlayer1 }, { name: player2.name, score: calculateScorePlayer2 }] :
-        [{ name: player1.name, score: calculateScorePlayer1 }];
+
+    let scores;
+
+    if (numberPlayers === "two") {
+        scores = [
+            { name: player1.name, score: calculateScorePlayer1 },
+            { name: player2.name, score: calculateScorePlayer2 }
+        ];
+    } else {
+        scores = [
+            { name: player1.name, score: calculateScorePlayer1 }
+        ];
+    }
+
 
     // Save scores for each player
     for (const player of scores) {
@@ -199,4 +204,3 @@ async function saveScores() {
     // Redirect to scores.html after saving scores
     window.location.href = 'scores.html';
 }
-
