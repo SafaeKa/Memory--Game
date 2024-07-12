@@ -1,12 +1,27 @@
 export default class Timer {
-    constructor(timerLength, timerDisplaySelector) {
-        this.totalSeconds = timerLength;
+    constructor(difficulty, timerDisplaySelector) {
         this.timerDisplay = document.querySelector(timerDisplaySelector);
         this.timerInterval = null;
+
+        if (difficulty === "4") {
+            this.totalSeconds = 30;
+            this.timerInitialState = "00:30";
+        } else if (difficulty === "6") {
+            this.totalSeconds = 45;
+            this.timerInitialState = "00:45";
+        } else if (difficulty === "9") {
+            this.totalSeconds = 75;
+            this.timerInitialState = "01:15";
+        } else {
+            //default
+            this.totalSeconds = 30;
+            this.timerInitialState = "00:30";
+        }
+
+        this.updateDisplay();
     }
 
     start() {
-        this.updateDisplay();
         this.timerInterval = setInterval(() => this.updateTimer(), 1000);
     }
 

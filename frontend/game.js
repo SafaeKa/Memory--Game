@@ -10,15 +10,15 @@ const urlParams = new URLSearchParams(window.location.search);
 const difficulty = urlParams.get('difficulty');
 const theme = urlParams.get('theme');
 const numberPlayers = urlParams.get('player')
-//geändert
-const player1Name = (urlParams.get('player1Name')).charAt(0).toUpperCase() + (urlParams.get('player1Name')).slice(1);
-const player1 = new Player(player1Name);
 
+const player1Name = Player.capitalizeName(urlParams.get('player1Name'));
+const player1 = new Player(player1Name);
 let player2 = null;
 if (numberPlayers === "two") {
-    const player2Name = (urlParams.get('player2Name')).charAt(0).toUpperCase() + (urlParams.get('player2Name')).slice(1);
+    const player2Name = Player.capitalizeName(urlParams.get('player2Name'));
     player2 = new Player(player2Name);
 }
+
 if (difficulty) {
     numberCards = parseInt(difficulty);
 }
@@ -29,35 +29,15 @@ let firstCard, secondCard;
 let lockBoard = false;
 let currentPlayer = player1;
 
-/*if (numberPlayers === "solo") {
-    player1.getScoreText = () => "Score: ";
-    player1.getAttemptsText = () => "Attempts: ";
-}*/
+player1.updateAttempts(1);
+player1.updateScore(1);
 
-document.querySelector(".attemptsPlayer1").textContent = player1.getAttemptsText();
-document.querySelector(".scorePlayer1").textContent = player1.getScoreText();
 if (numberPlayers === "two") {
-    document.querySelector(".attemptsPlayer2").textContent = player2.getAttemptsText();
-    document.querySelector(".scorePlayer2").textContent = player2.getScoreText();
+    player2.updateAttempts(2);
+    player2.updateScore(2);
 }
-let timerLength;
-let timerInitialState;
 
-if (difficulty === "4"){
-    timerLength = 30;
-    timerInitialState = "00:30";
-}
-if (difficulty === "6"){
-    timerLength = 45;
-    timerInitialState = "00:45"
-}
-if (difficulty === "9"){
-    timerLength = 75;
-    timerInitialState = "01:15"
-}
-//totalSeconds = timerLength;
-document.querySelector(".timer").textContent = "" + timerInitialState;
-const gameTimer = new Timer(timerLength, ".timer");
+const gameTimer = new Timer(difficulty, ".timer");
 gameTimer.onFinish = () => {
     console.log("finish");
     saveScores()
@@ -68,66 +48,6 @@ gameTimer.onFinish = () => {
             console.error('Error saving scores:', error);
         });
 };
-
-//part responsible for getting the cards
-fetch(theme)
-    .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch theme');
-        return res.json();
-    })
-    .then((data) => {
-        cardsAll = [...data];
-        shuffleCards();
-        generateCards();
-        gameTimer.start();
-        if (numberPlayers === "two") {
-            document.querySelector(".player").textContent = currentPlayer.name + ", it's your turn!";
-        } else {
-            document.querySelector(".player").textContent = "Have fun, " + currentPlayer.name + "!";
-            setTimeout(() => {
-                document.querySelector(".player").textContent = "";
-            }, 10000);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-
-function shuffleArray(array) {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-    }
-}
-
-function shuffleCards() {
-    shuffleArray(cardsAll);
-    cards = [...cardsAll.slice(0, numberCards), ...cardsAll.slice(0, numberCards)];
-    shuffleArray(cards);
-}
-
-
-
-function generateCards() {
-    for (let cardData of cards) {
-        const card = new Card(cardData.name, cardData.image, flipCard);
-        gridContainer.appendChild(card.cardElement);
-    }
-
-}
-function game(){
-
-    if (currentPlayer === player1){
-        currentPlayer = player2
-    }
-    else if (currentPlayer === player2){
-        currentPlayer = player1
-    }
-    document.querySelector(".player").textContent = currentPlayer.name + ", it's you're turn!";
-}
 
 
 function flipCard(cardElement) {
@@ -143,20 +63,58 @@ function flipCard(cardElement) {
 
     secondCard = cardElement;
     currentPlayer.incrementAttempts();
-    document.querySelector(".attemptsPlayer1").textContent = player1.getAttemptsText();
+    player1.updateAttempts(1);
     if (numberPlayers === "two") {
-        document.querySelector(".attemptsPlayer2").textContent = player2.getAttemptsText();
+        player2.updateAttempts(2);
     }
     lockBoard = true;
 
     checkForMatch();
 }
 
+//part responsible for getting the cards
+fetch(theme)
+    .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch theme');
+        return res.json();
+    })
+    .then((data) => {
+        cardsAll = [...data];
+        Card.shuffleArray(cardsAll, numberCards);
+        Card.generateCards(gridContainer, cardsAll, numberCards, flipCard);
+        gameTimer.start();
+
+        if (numberPlayers === "two") {
+            currentPlayer.setPlayerMessage(`${currentPlayer.name}, it's your turn!`);
+        } else {
+            currentPlayer.setPlayerMessage(`Have fun, ${currentPlayer.name}!`);
+            setTimeout(() => {
+                currentPlayer.setPlayerMessage("");
+            }, 10000);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+function game(){
+    if (currentPlayer === player1){
+        currentPlayer = player2
+    }
+    else if (currentPlayer === player2){
+        currentPlayer = player1
+    }
+    currentPlayer.setPlayerMessage(`${currentPlayer.name}, it's your turn!`);
+}
 
 function checkForMatch() {
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
-
-    isMatch ? (disableCards(), scoreIncrement()) : unflipCards();
+    if (isMatch) {
+        disableCards();
+        scoreIncrement();
+    } else {
+        unflipCards();
+    }
 }
 
 function disableCards() {
@@ -181,9 +139,9 @@ function unflipCards() {
 function scoreIncrement(){
     let allMatchesFound = false;
     currentPlayer.incrementScore();
-    document.querySelector(".scorePlayer1").textContent = player1.getScoreText();
+    player1.updateScore(1);
     if (numberPlayers === "two") {
-        document.querySelector(".scorePlayer2").textContent = player2.getScoreText();
+        player2.updateScore(2);
         if (player1.score + player2.score === numberCards ){
             allMatchesFound = true;
         }
@@ -194,16 +152,21 @@ function scoreIncrement(){
     }
 
     if (allMatchesFound) { // Check if all matches are found
-        gameTimer.stop(); // Stop the timer
-        saveScores()
-            .then(() => {
-                // Redirect to scores.html after saving scores
-                window.location.href = 'scores.html';
-            })
-            .catch(error => {
-                console.error('Error saving scores:', error);
-            });
+        allMatches();
     }
+}
+
+function allMatches(){
+    gameTimer.stop(); // Stop the timer
+    saveScores()
+        //delete 162-169?
+        .then(() => {
+            // Redirect to scores.html after saving scores
+            window.location.href = 'scores.html';
+        })
+        .catch(error => {
+            console.error('Error saving scores:', error);
+        });
 }
 
 function resetBoard() {
