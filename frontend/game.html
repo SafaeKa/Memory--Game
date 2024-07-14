@@ -6,29 +6,32 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h1>Memory</h1>
-<p> <span class="player"></span></p>
-<div class="cards-container">
-<div class="grid-container">
-</div>
-</div>
-<div class="gameInformation">
-    <div class="Player1">
-        <p> <span class="attemptsPlayer1"></span></p>
-        <p> <span class="scorePlayer1"></span></p>
-    </div>
-    <div class="actions">
-        <button onclick="restart()">Restart</button>
-    </div>
-    <div class="Player2">
-        <p> <span class="attemptsPlayer2"></span></p>
-        <p> <span class="scorePlayer2"></span></p>
-    </div>
-</div>
-<div class="timer-container">
-    <p class="timer-text">Timer:</p>
-    <p class="timer"></p>
-</div>
-<script src="game.js"></script>
+<header>
+    <h1>Memory</h1>
+    <p><span class="player"></span></p>
+</header>
+<main>
+    <section class="cards-container">
+        <div class="grid-container"></div>
+    </section>
+    <section class="gameInformation">
+        <article class="Player1">
+            <p><span class="attemptsPlayer1"></span></p>
+            <p><span class="scorePlayer1"></span></p>
+        </article>
+        <div class="actions">
+            <button onclick="restart()">Restart</button>
+        </div>
+        <article class="Player2">
+            <p><span class="attemptsPlayer2"></span></p>
+            <p><span class="scorePlayer2"></span></p>
+        </article>
+    </section>
+    <section class="timer-container">
+        <p class="timer-text">Timer:</p>
+        <p class="timer"></p>
+    </section>
+</main>
+<script type="module" src="game.js"></script>
 </body>
 </html>

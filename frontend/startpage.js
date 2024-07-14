@@ -4,24 +4,45 @@ let colored = {
     3: ""
 };
 
-const playerNamesForm = document.getElementById('playerNamesForm');
-const player1Input = document.getElementById('player1Name');
-const player2Input = document.getElementById('player2Name');
-const descriptionText = document.querySelector('.description');
+document.addEventListener('DOMContentLoaded', () => {
+    const playerNamesForm = document.getElementById('playerNamesForm');
+    const player1Input = document.getElementById('player1Name');
+    const player2Input = document.getElementById('player2Name');
+    const descriptionText = document.querySelector('.description');
 
-function changeBackgroundColor(id, value) {
+    document.getElementById('flags').addEventListener('click', (event) => changeBackgroundColor(event, '1'));
+    document.getElementById('fruits').addEventListener('click', (event) => changeBackgroundColor(event, '1'));
+    document.getElementById('nature').addEventListener('click', (event) => changeBackgroundColor(event, '1'));
+    document.getElementById('random').addEventListener('click', (event) => changeBackgroundColor(event, '1'));
+
+    document.getElementById('solo').addEventListener('click', () => handlePlayerClick('solo'));
+    document.getElementById('two').addEventListener('click', () => handlePlayerClick('two'));
+
+    document.getElementById('easy').addEventListener('click', (event) => changeBackgroundColor(event, '3'));
+    document.getElementById('medium').addEventListener('click', (event) => changeBackgroundColor(event, '3'));
+    document.getElementById('hard').addEventListener('click', (event) => changeBackgroundColor(event, '3'));
+
+    document.getElementById('startButton').addEventListener('click', generateLink);
+});
+
+function changeBackgroundColor(event, value) {
     if (colored[value]) {
         const buttonColored = document.getElementById(colored[value]);
         buttonColored.style.backgroundColor = "white";
     }
-    const button = document.getElementById(id);
+    const button = event.target;
     button.style.backgroundColor = "green";
-    colored[value] = id;
+    colored[value] = button.id;
     checkOptionsSelected();
 }
 
 function checkOptionsSelected() {
     const startButton = document.getElementById("startButton");
+    const playerNamesForm = document.getElementById('playerNamesForm');
+    const player1Input = document.getElementById('player1Name');
+    const player2Input = document.getElementById('player2Name');
+    const descriptionText = document.querySelector('.description');
+
     let playerNamesFilled = true;
 
     if (colored[2] === 'solo') {
@@ -42,6 +63,10 @@ function checkOptionsSelected() {
 }
 
 function generateLink() {
+    const playerNamesForm = document.getElementById('playerNamesForm');
+    const player1Input = document.getElementById('player1Name');
+    const player2Input = document.getElementById('player2Name');
+
     if (playerNamesForm.style.display !== 'none' && !playerNamesForm.disabled) {
         if (colored[2] === 'solo' && player1Input.value.trim() !== '') {
             generateGameLink();
@@ -90,6 +115,10 @@ function generateGameLink() {
 }
 
 function togglePlayerInput(playerType) {
+    const player1Input = document.getElementById('player1Name');
+    const player2Input = document.getElementById('player2Name');
+    const playerNamesForm = document.getElementById('playerNamesForm');
+
     if (playerType === 'solo') {
         player1Input.style.display = 'block';
         player2Input.style.display = 'none';
@@ -100,8 +129,8 @@ function togglePlayerInput(playerType) {
     playerNamesForm.style.display = 'block';
 }
 
-function handlePlayerClick(id, playerType) {
-    changeBackgroundColor(id, '2');
+function handlePlayerClick(playerType) {
+    changeBackgroundColor(event, '2');
     togglePlayerInput(playerType);
 }
 
