@@ -5,10 +5,6 @@ let colored = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const playerNamesForm = document.getElementById('playerNamesForm');
-    const player1Input = document.getElementById('player1Name');
-    const player2Input = document.getElementById('player2Name');
-    const descriptionText = document.querySelector('.description');
 
     document.getElementById('flags').addEventListener('click', (event) => changeBackgroundColor(event, '1'));
     document.getElementById('fruits').addEventListener('click', (event) => changeBackgroundColor(event, '1'));
@@ -38,7 +34,6 @@ function changeBackgroundColor(event, value) {
 
 function checkOptionsSelected() {
     const startButton = document.getElementById("startButton");
-    const playerNamesForm = document.getElementById('playerNamesForm');
     const player1Input = document.getElementById('player1Name');
     const player2Input = document.getElementById('player2Name');
     const descriptionText = document.querySelector('.description');
