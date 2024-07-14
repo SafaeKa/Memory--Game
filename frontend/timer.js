@@ -53,12 +53,5 @@ export default class Timer {
     }
 
     onFinish() {
-        /*saveScores()
-            .then(() => {
-                window.location.href = 'scores.html';
-            })
-            .catch(error => {
-                console.error('Error saving scores:', error);
-            });*/
     }
 }

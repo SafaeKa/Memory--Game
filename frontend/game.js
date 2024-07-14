@@ -4,7 +4,6 @@ import Player from "./player.js";
 
 class Game {
     constructor() {
-        //Initializing HTML elements and game variables
         this.gridContainer = document.querySelector(".grid-container");
         this.numberCards = 4; //default number
         this.cardsAll = [];
@@ -14,28 +13,24 @@ class Game {
         this.init();
     }
 
-    //Initialization method
     init() {
-        //extract difficulty level and theme
         const urlParams = new URLSearchParams(window.location.search);
         const difficulty = urlParams.get('difficulty');
         const theme = urlParams.get('theme');
         const numberPlayers = urlParams.get('player');
 
-        //Initialize players
         this.player1 = this.createPlayer(urlParams.get('player1Name'));
         this.player2 = null;
         if (numberPlayers === "two") {
             this.player2 = this.createPlayer(urlParams.get('player2Name'));
         }
-        //set difficulty level
+
         if (difficulty) {
             this.numberCards = parseInt(difficulty);
         }
 
-        this.currentPlayer = this.player1; //The player in the beginning is player 1
+        this.currentPlayer = this.player1;
 
-        //refresh attempts and scores of the players
         this.player1.updateAttempts(1);
         this.player1.updateScore(1);
         if (numberPlayers === "two") {
@@ -49,10 +44,8 @@ class Game {
             this.saveScores();
         };
 
-        //Call cards for the chosen theme
         this.fetchThemeCards(theme);
     }
-    //End of Init
 
     //Helper method to create a player
     createPlayer(name) {
@@ -73,7 +66,7 @@ class Game {
         this.secondCard = cardElement;
         this.currentPlayer.incrementAttempts();
         this.player1.updateAttempts(1);
-        if (this.player2) { //HMMMM
+        if (this.player2) {
             this.player2.updateAttempts(2);
         }
         this.lockBoard = true;
@@ -93,7 +86,7 @@ class Game {
                 Card.generateCards(this.gridContainer, this.cardsAll, this.numberCards, this.flipCard.bind(this));
                 this.gameTimer.start();
 
-                if (this.player2) { //HMMMM
+                if (this.player2) {
                     this.currentPlayer.setPlayerMessage(`${this.currentPlayer.name}, it's your turn!`);
                 } else {
                     this.currentPlayer.setPlayerMessage(`Have fun, ${this.currentPlayer.name}!`);
@@ -125,12 +118,12 @@ class Game {
     }
 
     unflipCards() {
-        //After both cards have been revealed, they remain revealed for a short time so that the player can remember the second motive until they are turned over again.
+        //After both cards have been revealed, they remain revealed for a short time so that the player can remember the second motive until they are turned over again
         setTimeout(() => {
             this.firstCard.classList.remove("flipped");
             this.secondCard.classList.remove("flipped");
             this.resetBoard();
-            if (this.player2) { //HMMMM
+            if (this.player2) {
                 this.switchPlayer();
             }
         }, 1000);
@@ -141,7 +134,7 @@ class Game {
         let allMatchesFound = false;
         this.currentPlayer.incrementScore();
         this.player1.updateScore(1);
-        if (this.player2) { //HMMMM
+        if (this.player2) {
             this.player2.updateScore(2);
             if (this.player1.score + this.player2.score === this.numberCards) {
                 allMatchesFound = true;
@@ -152,7 +145,7 @@ class Game {
             }
         }
 
-        if (allMatchesFound) { // Check if all matches are found
+        if (allMatchesFound) {
             this.allMatches();
         }
     }

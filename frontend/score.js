@@ -18,7 +18,7 @@ const fetchPlayerData = async () => {
         return data.map((item, index) => new Score(index + 1, item.name, item.score));
     } catch (error) {
         console.error('Error fetching player data:', error);
-        return []; // Return empty array in case of error
+        return [];
     }
 };
 
@@ -40,7 +40,6 @@ const createTableRow = (score) => {
     return row;
 };
 
-// Populate the table with player data
 const populateTable = async () => {
     const tableBody = document.querySelector('#scoreTable tbody');
     const playerData = await fetchPlayerData();
@@ -51,7 +50,6 @@ const populateTable = async () => {
     });
 };
 
-// Execute populateTable function when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     populateTable();
 
