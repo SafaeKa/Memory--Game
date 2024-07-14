@@ -49,5 +49,4 @@ public class PlayerService {
         return playerRepository.save(newPlayer);
     }
 
-    //delete and put not necessary?
 }
