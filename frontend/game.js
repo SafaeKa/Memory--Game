@@ -177,7 +177,7 @@ class Game {
         if (this.player2) {
             calculateScorePlayer2 = this.player2.score / this.player2.attempts * 10;
         }
-        const url = 'http://localhost:8080/player';
+        const url = 'https://memory-backend-application-a3d1c61211c9.herokuapp.com/player';
 
         let scores;
 
