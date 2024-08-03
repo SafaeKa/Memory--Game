@@ -172,12 +172,12 @@ class Game {
     }
 
     async saveScores() {
-        let calculateScorePlayer1 = this.player1.score / this.player1.attempts * 10;
+        let calculateScorePlayer1 = this.player1.attempts === 0 ? 0 : this.player1.score / this.player1.attempts * 10;
         let calculateScorePlayer2;
         if (this.player2) {
-            calculateScorePlayer2 = this.player2.score / this.player2.attempts * 10;
+            calculateScorePlayer2 = this.player2.attempts === 0 ? 0 : this.player2.score / this.player2.attempts * 10;
         }
-        const url = 'http://localhost:8080/player';
+        const url = 'https://memory-backend-application-a3d1c61211c9.herokuapp.com/player';
 
         let scores;
 

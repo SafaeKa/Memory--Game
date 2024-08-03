@@ -7,7 +7,7 @@ class Score {
 }
 
 const fetchPlayerData = async () => {
-    const url = 'http://localhost:8080/player';
+    const url = 'https://memory-backend-application-a3d1c61211c9.herokuapp.com/player';
 
     try {
         const response = await fetch(url);
