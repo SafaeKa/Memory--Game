@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend  # Path to your backend Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Map port 8080 on host to port 8080 in container
+    networks:
+      - mynetwork
+
+  frontend:
+    build:
+      context: ./frontend  # Path to your frontend Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"  # Map port 80 on host to port 80 in container
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
